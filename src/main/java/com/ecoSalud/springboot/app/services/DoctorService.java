@@ -4,12 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ecoSalud.springboot.app.models.entity.Doctor;
 import com.ecoSalud.springboot.app.repository.DoctorRepository;
-
-import javax.transaction.Transactional;
 
 @Service
 @Transactional
@@ -27,20 +25,22 @@ public class DoctorService {
     }
 
     public Doctor buscarPorId(Integer id) {
-        return doctorRepository.findById(id).get();
+        return doctorRepository.findById(id).orElse(null);
     }
 
     public Doctor actualizar(Doctor doctorActualizar) {
-        Doctor doctorActual = doctorRepository.findById(doctorActualizar.getId_doctor()).get();
+        Doctor doctorActual = doctorRepository.findById(doctorActualizar.getId_doctor()).orElse(null);
         
-        doctorActual.setId_doctor(doctorActualizar.getId_doctor());
-        doctorActual.setNombres(doctorActualizar.getNombres());
-        doctorActual.setApellidos(doctorActualizar.getApellidos());
-        doctorActual.setDisponibilidad(doctorActualizar.getDisponibilidad());
-        doctorActual.setEspecialidad(doctorActualizar.getEspecialidad());
-        
-        Doctor doctorActualizado = doctorRepository.save(doctorActual);
-        return doctorRepository.save(doctorActual);
+        if (doctorActual != null) {
+            doctorActual.setNombres(doctorActualizar.getNombres());
+            doctorActual.setApellidos(doctorActualizar.getApellidos());
+            doctorActual.setDisponibilidad(doctorActualizar.getDisponibilidad());
+            doctorActual.setEspecialidad(doctorActualizar.getEspecialidad());
+            
+            return doctorRepository.save(doctorActual);
+        } else {
+            return null;
+        }
     }
 
     public void eliminarDoctor(Integer id) {

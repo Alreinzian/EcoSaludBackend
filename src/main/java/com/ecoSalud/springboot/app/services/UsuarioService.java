@@ -4,11 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ecoSalud.springboot.app.models.entity.Usuario;
 import com.ecoSalud.springboot.app.repository.UsuarioRepository;
-
-import javax.transaction.Transactional;
 
 @Service
 @Transactional
@@ -26,29 +25,30 @@ public class UsuarioService {
     }
 
     public Usuario buscarPorId(Integer id) {
-        return usuarioRepository.findById(id).get();
+        return usuarioRepository.findById(id).orElse(null);
     }
 
     public Usuario actualizar(Usuario usuarioActualizar) {
-        Usuario usuarioActual = usuarioRepository.findById(usuarioActualizar.getId_usuario()).get();
+        Usuario usuarioActual = usuarioRepository.findById(usuarioActualizar.getId_usuario()).orElse(null);
         
-        usuarioActual.setId_usuario(usuarioActualizar.getId_usuario());
-        usuarioActual.setNombres(usuarioActualizar.getNombres());
-        usuarioActual.setApellidoMaterno(usuarioActualizar.getApellidoMaterno());
-        usuarioActual.setApellidoPaterno(usuarioActualizar.getApellidoPaterno());
-        usuarioActual.setFechaNac(usuarioActualizar.getFechaNac());
-        usuarioActual.setCorreo(usuarioActualizar.getCorreo());
-        usuarioActual.setPassword(usuarioActualizar.getPassword());
-        usuarioActual.setDni(usuarioActualizar.getDni());
-        usuarioActual.setTelefono(usuarioActualizar.getTelefono());
-        usuarioActual.setDireccion(usuarioActualizar.getDireccion());
+        if (usuarioActual != null) {
+            usuarioActual.setNombres(usuarioActualizar.getNombres());
+            usuarioActual.setApellidoMaterno(usuarioActualizar.getApellidoMaterno());
+            usuarioActual.setApellidoPaterno(usuarioActualizar.getApellidoPaterno());
+            usuarioActual.setFechaNac(usuarioActualizar.getFechaNac());
+            usuarioActual.setCorreo(usuarioActualizar.getCorreo());
+            usuarioActual.setPassword(usuarioActualizar.getPassword());
+            usuarioActual.setDni(usuarioActualizar.getDni());
+            usuarioActual.setTelefono(usuarioActualizar.getTelefono());
+            usuarioActual.setDireccion(usuarioActualizar.getDireccion());
 
-        Usuario usuarioActualizado = usuarioRepository.save(usuarioActual);
-        return usuarioActualizado;
+            return usuarioRepository.save(usuarioActual);
+        } else {
+            return null;
+        }
     }
 
     public void eliminarUsuario(Integer id) {
         usuarioRepository.deleteById(id);
     }
 }
-
