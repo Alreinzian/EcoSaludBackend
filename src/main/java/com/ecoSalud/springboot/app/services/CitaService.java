@@ -28,6 +28,7 @@ public class CitaService {
         return citaRepository.findById(id).orElse(null);
     }
 
+    
     public Cita actualizar(Cita citaActualizar) {
         Cita citaActual = citaRepository.findById(citaActualizar.getIdCita()).orElse(null);
 
