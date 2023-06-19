@@ -5,6 +5,7 @@
    * Easy selector helper function
    */
   const select = (el, all = false) => {
+    debugger
     el = el.trim()
     if (all) {
       return [...document.querySelectorAll(el)]

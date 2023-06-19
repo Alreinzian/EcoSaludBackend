@@ -1,10 +1,150 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Aplicación Spring Boot</title>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head">
 </head>
+
 <body>
-    <h1>Bienvenido a mi aplicación Spring Boot</h1>
-    <p>¡Hola desde el archivo HTML!</p>
+    <header th:replace="layout/layout :: header"></header>
+    <aside th:replace="layout/layout :: sidebar"></aside>
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1 th:text="${titulo}"></h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/ventasOnline/">Home</a></li>
+                    <li class="breadcrumb-item">Doctor</li>
+                    <li class="breadcrumb-item"><a href="/listar">Tabla</a></li>
+                    <li class="breadcrumb-item active" th:text="${subTitulo}"></li>
+                </ol>
+            </nav>
+        </div>
+        <section class="section">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">ACTUALIZAR DOCTOR</h5>
+                            <form th:action="@{/doctor/guardar}" th:object="${doctor}" method="post">
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Id</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{id_doctor}"
+                                            th:errorclass="'form-control alert-danger'" readonly>
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('id_doctor')}"
+                                            th:errors="*{id_doctor}"></small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Nombres</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{nombres}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('nombres')}"
+                                            th:errors="*{nombres}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Apellidos</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{apellidos}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}"
+                                            th:errors="*{apellidos}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Disponibilidad</label>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Lunes"
+                                                name="disponibilidad" id="disponibilidad-lunes">
+                                            <label class="form-check-label" for="disponibilidad-lunes">
+                                                Lunes
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Martes"
+                                                name="disponibilidad" id="disponibilidad-martes">
+                                            <label class="form-check-label" for="disponibilidad-martes">
+                                                Martes
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Miércoles"
+                                                name="disponibilidad" id="disponibilidad-miercoles">
+                                            <label class="form-check-label" for="disponibilidad-miercoles">
+                                                Miércoles
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Jueves"
+                                                name="disponibilidad" id="disponibilidad-jueves">
+                                            <label class="form-check-label" for="disponibilidad-jueves">
+                                                Jueves
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Viernes"
+                                                name="disponibilidad" id="disponibilidad-viernes">
+                                            <label class="form-check-label" for="disponibilidad-viernes">
+                                                Viernes
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Sábado"
+                                                name="disponibilidad" id="disponibilidad-sabado">
+                                            <label class="form-check-label" for="disponibilidad-sabado">
+                                                Sábado
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Domingo"
+                                                name="disponibilidad" id="disponibilidad-domingo">
+                                            <label class="form-check-label" for="disponibilidad-domingo">
+                                                Domingo
+                                            </label>
+                                        </div>
+                                        <small class="form-text text-danger"
+                                            th:if="${#fields.hasErrors('disponibilidad')}"
+                                            th:errors="*{disponibilidad}"></small>
+                                        <span id="errorDisponibilidad" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Especialidad</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-select" th:field="*{especialidad}"
+                                            th:errorclass="'form-select alert-danger'" id="especialidad">
+                                            <option value="">Selecciona una especialidad</option>
+                                            <option value="Cardiología">Cardiología</option>
+                                            <option value="Pediatría">Pediatría</option>
+                                            <option value="Dermatología">Dermatología</option>
+                                            <option value="Ginecología">Ginecología</option>
+                                            <option value="Ortopedia">Ortopedia</option>
+                                            <option value="Neurología">Neurología</option>
+                                            <option value="Psicología">Psicología</option>
+                                            <option value="Oncología">Oncología</option>
+                                        </select>
+                                        <small class="form-text text-danger"
+                                            th:if="${#fields.hasErrors('especialidad')}"
+                                            th:errors="*{especialidad}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-10 offset-lg-2 text-center">
+                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer th:replace="layout/layout :: footer"></footer>
 </body>
+
 </html>

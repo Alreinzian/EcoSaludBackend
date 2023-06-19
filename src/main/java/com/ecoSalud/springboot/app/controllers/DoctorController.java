@@ -19,26 +19,25 @@ import com.ecoSalud.springboot.app.services.DoctorService;
 @Controller
 @RequestMapping("/doctor")
 public class DoctorController {
-	@Autowired 
+	@Autowired
 	private DoctorService servicio;
-	
-	
-	@RequestMapping( "/listar")
-	public String listar (Model model) {
-		
+
+	@RequestMapping("/listar")
+	public String listar(Model model) {
+
 		List<Doctor> listaDoctores = servicio.buscarTodo();
 		System.out.println("LISTA DE DOCTORES: " + listaDoctores);
 		model.addAttribute("listaDoctores", listaDoctores);
 		return "moduloDoctor/listar";
 	}
 
-	@RequestMapping( "/crear")
+	@RequestMapping("/crear")
 	public String crear(Model model) {
 		Doctor doctor = new Doctor();
 		model.addAttribute("doctor", doctor);
-		return "moduloDoctor/crear";	
+		return "moduloDoctor/crear";
 	}
-	
+
 	@RequestMapping(value = "/guardar", method = RequestMethod.POST)
 	public String crear(@ModelAttribute("doctor") Doctor doctor) {
 		servicio.crear(doctor);

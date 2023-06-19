@@ -1,10 +1,179 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Aplicación Spring Boot</title>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="layout/layout :: head">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <style>
+        .main {
+            padding-top: 20px;
+        }
+
+        .pagetitle {
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb {
+            background-color: #f8f9fa;
+            margin-bottom: 0;
+        }
+
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .table-responsive {
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .table td,
+        .table th {
+            white-space: nowrap;
+        }
+
+        body {
+            background-color: #f1f1f1;
+        }
+
+        .card {
+            background-color: #ffffff;
+        }
+
+        .card-body {
+            background-color: #f8f9fa;
+        }
+
+        .table {
+            background-color: #ffffff;
+        }
+
+        .btn-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        /* Estilos personalizados para el botón de búsqueda */
+        .btn-buscar {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-buscar:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+            color: #fff;
+        }
+
+        .btn-buscar:focus {
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+            outline: 0;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Bienvenido a mi aplicación Spring Boot</h1>
-    <p>¡Hola desde el archivo HTML!</p>
+    <header th:replace="layout/layout :: header"></header>
+    <aside th:replace="layout/layout :: sidebar"></aside>
+    <main id="main" class="main">
+        <div class="container">
+            <div class="pagetitle">
+                <h1 th:text="${titulo}"></h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/ecoSalud">Inicio</a></li>
+                        <li class="breadcrumb-item">Doctor</li>
+                        <li class="breadcrumb-item active">Tabla</li>
+                    </ol>
+                </nav>
+            </div>
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${titulo}"></h5>
+                                <div class="table-responsive">
+                                    <table id="tabla2" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Cita</th>
+                                                <th scope="col">Usuario</th>
+                                                <th scope="col">Doctor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="cita : ${listaCitas}">
+                                                <td th:text="${cita.id_usuario}"></td>
+                                                <td th:text="${cita.id_doctor}"></td>
+                                                <td th:text="${cita.especialidad}"></td>
+                                                <td th:text="${cita.disponibilidad}"></td>
+                                                <td>
+                                                    <a th:href="@{/doctor/actualizar/{id}(id=${doctor.id_doctor})}"
+                                                        class="btn btn-primary" data-toggle="tooltip"
+                                                        data-placement="bottom" title="Actualizar Doctor">
+                                                        <i class="fas fa-edit"></i> Actualizar
+                                                    </a>
+                                                    <a th:href="@{/doctor/eliminar/{id}(id=${doctor.id_doctor})}"
+                                                        class="btn btn-danger" data-toggle="tooltip"
+                                                        data-placement="bottom" title="Eliminar Doctor">
+                                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#tabla2").DataTable({
+                language: {
+                    decimal: "",
+                    emptyTable: "Datos no disponibles en la tabla",
+                    infoEmpty: "Mostrando 0 a 0 de 0 registros",
+                    infoFiltered: "(Filtrado de MAX registros totales)",
+                    infoPostFix: "",
+                    thousands: ",",
+                    loadingRecords: "Cargando...",
+                    processing: "Procesando...",
+                    search: "Buscar:",
+                    zeroRecords: "No se encontraron registros para la búsqueda",
+                    paginate: {
+                        first: "Primero",
+                        last: "Último",
+                        next: "Siguiente",
+                        previous: "Anterior",
+                    },
+                    aria: {
+                        sortAscending: ": Activar para ordenar ascendente",
+                        sortDescending: ": Activar para ordenar descendente",
+                    },
+                },
+                lengthMenu: [10, 25, 50, 75, 100],
+                pagingType: "full_numbers",
+            });
+            $('[data-toggle="tooltip"]').tooltip();
+            $(window).resize(function () {
+                $("#tabla2").DataTable().draw();
+            });
+        });
+    </script>
+
+    <footer th:replace="layout/layout :: footer"></footer>
 </body>
+
 </html>
