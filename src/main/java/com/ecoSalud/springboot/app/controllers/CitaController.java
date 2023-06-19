@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ecoSalud.springboot.app.models.entity.Cita;
+import com.ecoSalud.springboot.app.models.entity.Doctor;
 import com.ecoSalud.springboot.app.services.CitaService;
 
 @Controller
@@ -38,11 +39,7 @@ public class CitaController {
 	}
 
 	@RequestMapping(value = "/guardar", method = RequestMethod.POST)
-	public String crear(@ModelAttribute("cita") @Valid Cita cita, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-
-			return "moduloCita/crear";
-		}
+	public String crear(@ModelAttribute("cita") Cita cita) {
 		citaService.crear(cita);
 		return "redirect:/cita/listar";
 	}
@@ -55,16 +52,7 @@ public class CitaController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/actualizar/{id}", method = RequestMethod.POST)
-	public String actualizar(@PathVariable(name = "id") Integer id, @ModelAttribute("cita") @Valid Cita cita,
-			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-
-			return "moduloCita/form";
-		}
-		citaService.actualizar(cita);
-		return "redirect:/cita/listar";
-	}
+	
 
 	@RequestMapping(value = "/eliminar/{id}", method = RequestMethod.GET)
 	public String eliminar(@PathVariable(name = "id") Integer id) {

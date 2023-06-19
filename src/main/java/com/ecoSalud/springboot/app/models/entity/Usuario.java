@@ -57,7 +57,7 @@ public class Usuario {
 
     @Basic(optional = false)
     @Column(name = "fecha_nac")
-    private Date fechaNac;
+    private String fechaNac;
 
     @Basic(optional = false)
     @Column(name = "correo")
