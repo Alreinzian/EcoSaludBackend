@@ -1,5 +1,258 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
+<link href="img/favicon.ico" rel="icon">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="/src/main/resources/static/css/style.css" rel="stylesheet">
+<link href="/src/main/resources/static/css/owl.carousel.min.css" rel="stylesheet">
+<style>
+	:root {
+		--primary: #13c5dd;
+		--secondary: #354f8e;
+		--light: #eff5f9;
+		--dark: #1d2a4d;
+	}
+
+	.btn {
+		font-weight: 700;
+		transition: 0.5s;
+	}
+
+	.btn:hover {
+		-webkit-box-shadow: 0 8px 6px -6px #555555;
+		-moz-box-shadow: 0 8px 6px -6px #555555;
+		box-shadow: 0 8px 6px -6px #555555;
+	}
+
+	.btn-primary {
+		color: #ffffff;
+	}
+
+	.btn-square {
+		width: 36px;
+		height: 36px;
+	}
+
+	.btn-sm-square {
+		width: 28px;
+		height: 28px;
+	}
+
+	.btn-lg-square {
+		width: 46px;
+		height: 46px;
+	}
+
+	.btn-square,
+	.btn-sm-square,
+	.btn-lg-square {
+		padding-left: 0;
+		padding-right: 0;
+		text-align: center;
+	}
+
+	.back-to-top {
+		position: fixed;
+		display: none;
+		right: 30px;
+		bottom: 0;
+		border-radius: 50% 50% 0 0;
+		z-index: 99;
+	}
+
+	.navbar-light .navbar-nav .nav-link {
+		font-family: "Jost", sans-serif;
+		position: relative;
+		margin-left: 30px;
+		padding: 30px 0;
+		font-size: 18px;
+		font-weight: 700;
+		color: var(--dark);
+		outline: none;
+		transition: 0.5s;
+	}
+
+	.navbar-light .navbar-nav .nav-link:hover,
+	.navbar-light .navbar-nav .nav-link.active {
+		color: var(--primary);
+	}
+
+	@media (min-width: 992px) {
+		.navbar-light .navbar-nav .nav-link::before {
+			position: absolute;
+			content: "";
+			width: 0;
+			height: 5px;
+			bottom: 0;
+			left: 50%;
+			background: var(--primary);
+			transition: 0.5s;
+		}
+
+		.navbar-light .navbar-nav .nav-link:hover::before,
+		.navbar-light .navbar-nav .nav-link.active::before {
+			width: 100%;
+			left: 0;
+		}
+	}
+
+	@media (max-width: 991.98px) {
+		.navbar-light .navbar-nav .nav-link {
+			margin-left: 0;
+			padding: 10px 0;
+		}
+	}
+
+	.hero-header {
+		background: url(../img/hero.jpg) top right no-repeat;
+		background-size: cover;
+	}
+
+	.service-item {
+		position: relative;
+		height: 350px;
+		padding: 0 30px;
+		transition: 0.5s;
+	}
+
+	.service-item .service-icon {
+		width: 150px;
+		height: 100px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--primary);
+		border-radius: 50%;
+		transform: rotate(-14deg);
+	}
+
+	.service-item .service-icon i {
+		transform: rotate(15deg);
+	}
+
+	.service-item a.btn {
+		position: absolute;
+		width: 60px;
+		bottom: -48px;
+		left: 50%;
+		margin-left: -30px;
+		opacity: 0;
+	}
+
+	.service-item:hover a.btn {
+		bottom: -24px;
+		opacity: 1;
+	}
+
+	.price-carousel::after {
+		position: absolute;
+		content: "";
+		width: 100%;
+		height: 50%;
+		bottom: 0;
+		left: 0;
+		background: var(--primary);
+		border-radius: 8px 8px 50% 50%;
+		z-index: -1;
+	}
+
+	.price-carousel .owl-nav {
+		margin-top: 35px;
+		width: 100%;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+	}
+
+	.price-carousel .owl-nav .owl-prev,
+	.price-carousel .owl-nav .owl-next {
+		position: relative;
+		margin: 0 5px;
+		width: 45px;
+		height: 45px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--primary);
+		background: #ffffff;
+		font-size: 22px;
+		border-radius: 45px;
+		transition: 0.5s;
+	}
+
+	.price-carousel .owl-nav .owl-prev:hover,
+	.price-carousel .owl-nav .owl-next:hover {
+		color: var(--dark);
+	}
+
+	@media (min-width: 576px) {
+		.team-item .row {
+			height: 350px;
+		}
+	}
+
+	.team-carousel .owl-nav {
+		position: absolute;
+		padding: 0 45px;
+		width: 100%;
+		height: 45px;
+		top: calc(50% - 22.5px);
+		left: 0;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.team-carousel .owl-nav .owl-prev,
+	.team-carousel .owl-nav .owl-next {
+		position: relative;
+		width: 45px;
+		height: 45px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #ffffff;
+		background: var(--primary);
+		border-radius: 45px;
+		font-size: 22px;
+		transition: 0.5s;
+	}
+
+	.team-carousel .owl-nav .owl-prev:hover,
+	.team-carousel .owl-nav .owl-next:hover {
+		background: var(--dark);
+	}
+
+	.testimonial-carousel .owl-dots {
+		margin-top: 15px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.testimonial-carousel .owl-dot {
+		position: relative;
+		display: inline-block;
+		margin: 0 5px;
+		width: 20px;
+		height: 20px;
+		background: var(--light);
+		border: 2px solid var(--primary);
+		border-radius: 20px;
+		transition: 0.5s;
+	}
+
+	.testimonial-carousel .owl-dot.active {
+		width: 40px;
+		height: 40px;
+		background: var(--primary);
+	}
+
+	.testimonial-carousel .owl-item img {
+		width: 150px;
+		height: 150px;
+	}
+</style>
 
 <head th:replace="layout/layout :: head">
 </head>
@@ -21,25 +274,6 @@
 			<div class="row">
 				<div class="col-lg">
 					<div class="row">
-						<!-- <div class="col-xxl-4 col-md-6">
-							<div class="card info-card sales-card">
-								<div class="card-body">
-									<h5 class="card-title">
-										Usuario<span>| EcoSalud</span>
-									</h5>
-									<div class="d-flex align-items-center wraper">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-											fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-											<path
-												d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-											<path fill-rule="evenodd"
-												d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
-										</svg></a>
-
-									</div>
-								</div>
-							</div>
-						</div> -->
 						<div class="col-xxl-4 col-md-6">
 							<div class="card info-card customers-card">
 								<div class="card-body">
@@ -100,6 +334,639 @@
 							</div>
 						</div>
 					</div>
+
+					<body>
+						<!-- Topbar Start -->
+						<div class="container-fluid py-2 border-bottom d-none d-lg-block">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
+										<div class="d-inline-flex align-items-center">
+											<a class="text-decoration-none text-body pe-3" href=""><i
+													class="bi bi-telephone me-2"></i>+012 345 6789</a>
+											<span class="text-body">|</span>
+											<a class="text-decoration-none text-body px-3" href=""><i
+													class="bi bi-envelope me-2"></i>info@example.com</a>
+										</div>
+									</div>
+									<div class="col-md-6 text-center text-lg-end">
+										<div class="d-inline-flex align-items-center">
+											<a class="text-body px-2" href="">
+												<i class="fab fa-facebook-f"></i>
+											</a>
+											<a class="text-body px-2" href="">
+												<i class="fab fa-twitter"></i>
+											</a>
+											<a class="text-body px-2" href="">
+												<i class="fab fa-linkedin-in"></i>
+											</a>
+											<a class="text-body px-2" href="">
+												<i class="fab fa-instagram"></i>
+											</a>
+											<a class="text-body ps-2" href="">
+												<i class="fab fa-youtube"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Topbar End -->
+
+
+						<!-- Navbar Start -->
+						<div class="container-fluid sticky-top bg-white shadow-sm">
+							<div class="container">
+								<nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
+									<a href="index.html" class="navbar-brand">
+										<h1 class="m-0 text-uppercase text-primary"><i
+												class="fa fa-clinic-medical me-2"></i>EcoSalud</h1>
+									</a>
+									<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+										data-bs-target="#navbarCollapse">
+										<span class="navbar-toggler-icon"></span>
+									</button>
+									<div class="collapse navbar-collapse" id="navbarCollapse">
+										<!--  -->
+									</div>
+								</nav>
+							</div>
+						</div>
+						<!-- Navbar End -->
+
+
+						<!-- Hero Start -->
+						<div class="container-fluid bg-primary py-5 mb-5 hero-header">
+							<div class="container py-5">
+								<div class="row justify-content-start">
+									<div class="col-lg-8 text-center text-lg-start">
+										<h5 class="d-inline-block text-primary text-uppercase border-bottom border-5"
+											style="border-color: rgba(256, 256, 256, .3) !important;">Welcome To
+											EcoSalud</h5>
+										<h1 class="display-1 text-white mb-md-4">La mejor solución de atención médica en
+											su ciudad
+										</h1>
+										<div class="pt-2">
+											<a href="" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Find
+												Doctor</a>
+											<a href=""
+												class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Cita
+												previa</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Hero End -->
+
+
+						<!-- About Start -->
+						<div class="container-fluid py-5">
+							<div class="container">
+								<div class="row gx-5">
+									<div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+										<div class="position-relative h-100">
+											<img class="position-absolute w-100 h-100 rounded" src="img/about.jpg"
+												style="object-fit: cover;">
+										</div>
+									</div>
+									<div class="col-lg-7">
+										<div class="mb-4">
+											<h5
+												class="d-inline-block text-primary text-uppercase border-bottom border-5">
+												Sobre Nosotros</h5>
+											<h1 class="display-4">La mejor atención médica para usted y su familia</h1>
+										</div>
+										<p>Nuestro hospital se compromete a brindarle a usted y a su familia atención
+											médica destacada, respaldada por un equipo experto y tecnología de
+											vanguardia. Nuestro enfoque se centra en su bienestar, ofreciendo una amplia
+											gama de servicios médicos, recursos informativos y consejos para promover
+											estilos de vida saludables. Estamos aquí para cuidarlo en cada etapa de su
+											vida y ser su aliado en su camino hacia una vida saludable y feliz.</p>
+										<div class="row g-3 pt-3">
+											<div class="col-sm-3 col-6">
+												<div class="bg-light text-center rounded-circle py-4">
+													<i class="fa fa-3x fa-user-md text-primary mb-3"></i>
+													<h6 class="mb-0">Calificado<small
+															class="d-block text-primary">Doctores</small></h6>
+												</div>
+											</div>
+											<div class="col-sm-3 col-6">
+												<div class="bg-light text-center rounded-circle py-4">
+													<i class="fa fa-3x fa-procedures text-primary mb-3"></i>
+													<h6 class="mb-0">Emergencia<small
+															class="d-block text-primary">Servicios</small></h6>
+												</div>
+											</div>
+											<div class="col-sm-3 col-6">
+												<div class="bg-light text-center rounded-circle py-4">
+													<i class="fa fa-3x fa-microscope text-primary mb-3"></i>
+													<h6 class="mb-0">Preciso<small
+															class="d-block text-primary">Pruebas</small>
+													</h6>
+												</div>
+											</div>
+											<div class="col-sm-3 col-6">
+												<div class="bg-light text-center rounded-circle py-4">
+													<i class="fa fa-3x fa-ambulance text-primary mb-3"></i>
+													<h6 class="mb-0">Libre<small
+															class="d-block text-primary">Ambulancia</small>
+													</h6>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- About End -->
+
+
+						<!-- Servicios Start -->
+						<div class="container-fluid py-5">
+							<div class="container">
+								<div class="text-center mx-auto mb-5" style="max-width: 500px;">
+									<h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">
+										Servicios</h5>
+									<h1 class="display-4">Excelentes Servicios Médicos</h1>
+								</div>
+								<div class="row g-5">
+									<div class="col-lg-4 col-md-6">
+										<div
+											class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+											<div class="service-icon mb-4">
+												<i class="fa fa-2x fa-user-md text-white"></i>
+											</div>
+											<h4 class="mb-3">Atención de emergencia</h4>
+											<p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum
+												rebum stet, justo elitr dolor amet sit</p>
+											<a class="btn btn-lg btn-primary rounded-pill" href="">
+												<i class="bi bi-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div
+											class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+											<div class="service-icon mb-4">
+												<i class="fa fa-2x fa-procedures text-white"></i>
+											</div>
+											<h4 class="mb-3">Operación y Cirugía</h4>
+											<p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum
+												rebum stet, justo elitr dolor amet sit</p>
+											<a class="btn btn-lg btn-primary rounded-pill" href="">
+												<i class="bi bi-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div
+											class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+											<div class="service-icon mb-4">
+												<i class="fa fa-2x fa-stethoscope text-white"></i>
+											</div>
+											<h4 class="mb-3">Chequeo al aire libre</h4>
+											<p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum
+												rebum stet, justo elitr dolor amet sit</p>
+											<a class="btn btn-lg btn-primary rounded-pill" href="">
+												<i class="bi bi-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div
+											class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+											<div class="service-icon mb-4">
+												<i class="fa fa-2x fa-ambulance text-white"></i>
+											</div>
+											<h4 class="mb-3">Servicio de Ambulancia</h4>
+											<p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum
+												rebum stet, justo elitr dolor amet sit</p>
+											<a class="btn btn-lg btn-primary rounded-pill" href="">
+												<i class="bi bi-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div
+											class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+											<div class="service-icon mb-4">
+												<i class="fa fa-2x fa-pills text-white"></i>
+											</div>
+											<h4 class="mb-3">Medicina y farmacia</h4>
+											<p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum
+												rebum stet, justo elitr dolor amet sit</p>
+											<a class="btn btn-lg btn-primary rounded-pill" href="">
+												<i class="bi bi-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div
+											class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+											<div class="service-icon mb-4">
+												<i class="fa fa-2x fa-microscope text-white"></i>
+											</div>
+											<h4 class="mb-3">Pruebas de sangre</h4>
+											<p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum
+												rebum stet, justo elitr dolor amet sit</p>
+											<a class="btn btn-lg btn-primary rounded-pill" href="">
+												<i class="bi bi-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Servicios End -->
+
+
+						<!--Cita previaStart -->
+						<div class="container-fluid bg-primary my-5 py-5">
+							<div class="container py-5">
+								<div class="row gx-5">
+									<div class="col-lg-6 mb-5 mb-lg-0">
+										<div class="mb-4">
+											<h5 class="d-inline-block text-white text-uppercase border-bottom border-5">
+												Cita previa</h5>
+											<h1 class="display-4">Concierte una cita para su familia</h1>
+										</div>
+										<p class="text-white mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit
+											sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum
+											duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et.
+											Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore
+											sanctus sed et. Takimata takimata sanctus sed.</p>
+										<a class="btn btn-dark rounded-pill py-3 px-5 me-3" href="">Buscar médico</a>
+										<a class="btn btn-outline-dark rounded-pill py-3 px-5" href="">Seguir
+											leyendo</a>
+									</div>
+									<div class="col-lg-6">
+										<div class="bg-white text-center rounded p-5">
+											<h1 class="mb-4">Reservar una Cita previa</h1>
+											<form>
+												<div class="row g-3">
+													<div class="col-12 col-sm-6">
+														<select class="form-select bg-light border-0"
+															style="height: 55px;">
+															<option selected>Elija Departamento</option>
+															<option value="1">Departamento 1</option>
+															<option value="2">Departamento 2</option>
+															<option value="3">Departamento 3</option>
+														</select>
+													</div>
+													<div class="col-12 col-sm-6">
+														<select class="form-select bg-light border-0"
+															style="height: 55px;">
+															<option selected>Seleccionar Doctor</option>
+															<option value="1">Doctor 1</option>
+															<option value="2">Doctor 2</option>
+															<option value="3">Doctor 3</option>
+														</select>
+													</div>
+													<div class="col-12 col-sm-6">
+														<input type="text" class="form-control bg-light border-0"
+															placeholder="Tu Nombre" style="height: 55px;">
+													</div>
+													<div class="col-12 col-sm-6">
+														<input type="email" class="form-control bg-light border-0"
+															placeholder="Tu correo" style="height: 55px;">
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="date" id="date" data-target-input="nearest">
+															<input type="text"
+																class="form-control bg-light border-0 datetimepicker-input"
+																placeholder="Fecha" data-target="#date"
+																data-toggle="datetimepicker" style="height: 55px;">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="time" id="time" data-target-input="nearest">
+															<input type="text"
+																class="form-control bg-light border-0 datetimepicker-input"
+																placeholder="Hora" data-target="#time"
+																data-toggle="datetimepicker" style="height: 55px;">
+														</div>
+													</div>
+													<div class="col-12">
+														<button class="btn btn-primary w-100 py-3" type="submit">Hacer
+															Cita Previa</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--Cita previaEnd -->
+
+
+						<!-- Pricing Plan Start -->
+
+						<!-- Pricing Plan End -->
+
+
+						<!-- Team Start -->
+						<div class="container-fluid py-5">
+							<div class="container">
+								<div class="text-center mx-auto mb-5" style="max-width: 500px;">
+									<h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">otros
+										Doctores</h5>
+									<h1 class="display-4">Profesionales sanitarios cualificados</h1>
+								</div>
+								<div class="owl-carousel team-carousel position-relative">
+									<div class="team-item">
+										<div class="row g-0 bg-light rounded overflow-hidden">
+											<div class="col-12 col-sm-5 h-100">
+												<img class="img-fluid h-100" src="img/team-1.jpg"
+													style="object-fit: cover;">
+											</div>
+											<div class="col-12 col-sm-7 h-100 d-flex flex-column">
+												<div class="mt-auto p-4">
+													<h3>Doctor Name</h3>
+													<h6 class="fw-normal fst-italic text-primary mb-4">Especialista en
+														Cardiologia </h6>
+													<p class="m-0">Dolor lorem eos dolor duo eirmod sea. Dolor sit magna
+														rebum clita rebum dolor</p>
+												</div>
+												<div class="d-flex mt-auto border-top p-4">
+													<a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3"
+														href="#"><i class="fab fa-twitter"></i></a>
+													<a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3"
+														href="#"><i class="fab fa-facebook-f"></i></a>
+													<a class="btn btn-lg btn-primary btn-lg-square rounded-circle"
+														href="#"><i class="fab fa-linkedin-in"></i></a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="team-item">
+										<div class="row g-0 bg-light rounded overflow-hidden">
+											<div class="col-12 col-sm-5 h-100">
+												<img class="img-fluid h-100" src="img/team-2.jpg"
+													style="object-fit: cover;">
+											</div>
+											<div class="col-12 col-sm-7 h-100 d-flex flex-column">
+												<div class="mt-auto p-4">
+													<h3>Doctor Name</h3>
+													<h6 class="fw-normal fst-italic text-primary mb-4">Especialista en
+														Cardiologia </h6>
+													<p class="m-0">Dolor lorem eos dolor duo eirmod sea. Dolor sit magna
+														rebum clita rebum dolor</p>
+												</div>
+												<div class="d-flex mt-auto border-top p-4">
+													<a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3"
+														href="#"><i class="fab fa-twitter"></i></a>
+													<a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3"
+														href="#"><i class="fab fa-facebook-f"></i></a>
+													<a class="btn btn-lg btn-primary btn-lg-square rounded-circle"
+														href="#"><i class="fab fa-linkedin-in"></i></a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="team-item">
+										<div class="row g-0 bg-light rounded overflow-hidden">
+											<div class="col-12 col-sm-5 h-100">
+												<img class="img-fluid h-100" src="img/team-3.jpg"
+													style="object-fit: cover;">
+											</div>
+											<div class="col-12 col-sm-7 h-100 d-flex flex-column">
+												<div class="mt-auto p-4">
+													<h3>Doctor Name</h3>
+													<h6 class="fw-normal fst-italic text-primary mb-4">Especialista en
+														Cardiologia </h6>
+													<p class="m-0">Dolor lorem eos dolor duo eirmod sea. Dolor sit magna
+														rebum clita rebum dolor</p>
+												</div>
+												<div class="d-flex mt-auto border-top p-4">
+													<a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3"
+														href="#"><i class="fab fa-twitter"></i></a>
+													<a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3"
+														href="#"><i class="fab fa-facebook-f"></i></a>
+													<a class="btn btn-lg btn-primary btn-lg-square rounded-circle"
+														href="#"><i class="fab fa-linkedin-in"></i></a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Team End -->
+
+
+						<!-- Search Start -->
+						<!-- <div class="container-fluid bg-primary my-5 py-5">
+							<div class="container py-5">
+								<div class="text-center mx-auto mb-5" style="max-width: 500px;">
+									<h5 class="d-inline-block text-white text-uppercase border-bottom border-5">Find A
+										Doctor</h5>
+									<h1 class="display-4 mb-4">Find A Healthcare Professionals</h1>
+									<h5 class="text-white fw-normal">Duo ipsum erat stet dolor sea ut nonumy tempor.
+										Tempor duo lorem eos sit sed ipsum takimata ipsum sit est. Ipsum ea voluptua
+										ipsum sit justo</h5>
+								</div>
+								<div class="mx-auto" style="width: 100%; max-width: 600px;">
+									<div class="input-group">
+										<select class="form-select border-primary w-25" style="height: 60px;">
+											<option selected>Departamento</option>
+											<option value="1">Departamento 1</option>
+											<option value="2">Departamento 2</option>
+											<option value="3">Departamento 3</option>
+										</select>
+										<input type="text" class="form-control border-primary w-50"
+											placeholder="Keyword">
+										<button class="btn btn-dark border-0 w-25">Search</button>
+									</div>
+								</div>
+							</div>
+						</div> -->
+						<!-- Search End -->
+
+
+						<!-- Testimonial Start -->
+						<div class="container-fluid py-5">
+							<div class="container">
+								<div class="text-center mx-auto mb-5" style="max-width: 500px;">
+									<h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">
+										Testimonial</h5>
+									<h1 class="display-4">Los pacientes opinan sobre nuestros servicios</h1>
+								</div>
+								<div class="row justify-content-center">
+									<div class="col-lg-8">
+										<div class="owl-carousel testimonial-carousel">
+											<div class="testimonial-item text-center">
+												<div class="position-relative mb-5">
+													<img class="img-fluid rounded-circle mx-auto"
+														src="img/testimonial-1.jpg" alt="">
+													<div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle"
+														style="width: 60px; height: 60px;">
+														<i class="fa fa-quote-left fa-2x text-primary"></i>
+													</div>
+												</div>
+												<p class="fs-4 fw-normal">Dolores sed duo clita tempor justo dolor et
+													stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut
+													et, nonumy et labore et tempor diam tempor erat. Erat dolor rebum
+													sit ipsum.</p>
+												<hr class="w-25 mx-auto">
+												<h3>Nombre del paciente</h3>
+												<h6 class="fw-normal text-primary mb-3">Profession</h6>
+											</div>
+											<div class="testimonial-item text-center">
+												<div class="position-relative mb-5">
+													<img class="img-fluid rounded-circle mx-auto"
+														src="img/testimonial-2.jpg" alt="">
+													<div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle"
+														style="width: 60px; height: 60px;">
+														<i class="fa fa-quote-left fa-2x text-primary"></i>
+													</div>
+												</div>
+												<p class="fs-4 fw-normal">Dolores sed duo clita tempor justo dolor et
+													stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut
+													et, nonumy et labore et tempor diam tempor erat. Erat dolor rebum
+													sit ipsum.</p>
+												<hr class="w-25 mx-auto">
+												<h3>Nombre del paciente</h3>
+												<h6 class="fw-normal text-primary mb-3">Profession</h6>
+											</div>
+											<div class="testimonial-item text-center">
+												<div class="position-relative mb-5">
+													<img class="img-fluid rounded-circle mx-auto"
+														src="img/testimonial-3.jpg" alt="">
+													<div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle"
+														style="width: 60px; height: 60px;">
+														<i class="fa fa-quote-left fa-2x text-primary"></i>
+													</div>
+												</div>
+												<p class="fs-4 fw-normal">Dolores sed duo clita tempor justo dolor et
+													stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut
+													et, nonumy et labore et tempor diam tempor erat. Erat dolor rebum
+													sit ipsum.</p>
+												<hr class="w-25 mx-auto">
+												<h3>Nombre del paciente</h3>
+												<h6 class="fw-normal text-primary mb-3">Profession</h6>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Testimonial End -->
+
+
+						<!-- Blog Start -->
+						<div class="container-fluid py-5">
+							<div class="container">
+								<div class="text-center mx-auto mb-5" style="max-width: 500px;">
+									<h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Blog
+										Post</h5>
+									<h1 class="display-4">Nuestras últimas entradas en el blog médico</h1>
+								</div>
+								<div class="row g-5">
+									<div class="col-xl-4 col-lg-6">
+										<div class="bg-light rounded overflow-hidden">
+											<img class="img-fluid w-100" src="img/blog-1.jpg" alt="">
+											<div class="p-4">
+												<a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor
+													justo diam</a>
+												<p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
+													rebum clita rebum dolor stet amet justo</p>
+											</div>
+											<div class="d-flex justify-content-between border-top p-4">
+												<div class="d-flex align-items-center">
+													<img class="rounded-circle me-2" src="img/user.jpg" width="25"
+														height="25" alt="">
+													<small>John Doe</small>
+												</div>
+												<div class="d-flex align-items-center">
+													<small class="ms-3"><i
+															class="far fa-eye text-primary me-1"></i>12345</small>
+													<small class="ms-3"><i
+															class="far fa-comment text-primary me-1"></i>123</small>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-xl-4 col-lg-6">
+										<div class="bg-light rounded overflow-hidden">
+											<img class="img-fluid w-100" src="img/blog-2.jpg" alt="">
+											<div class="p-4">
+												<a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor
+													justo diam</a>
+												<p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
+													rebum clita rebum dolor stet amet justo</p>
+											</div>
+											<div class="d-flex justify-content-between border-top p-4">
+												<div class="d-flex align-items-center">
+													<img class="rounded-circle me-2" src="img/user.jpg" width="25"
+														height="25" alt="">
+													<small>John Doe</small>
+												</div>
+												<div class="d-flex align-items-center">
+													<small class="ms-3"><i
+															class="far fa-eye text-primary me-1"></i>12345</small>
+													<small class="ms-3"><i
+															class="far fa-comment text-primary me-1"></i>123</small>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-xl-4 col-lg-6">
+										<div class="bg-light rounded overflow-hidden">
+											<img class="img-fluid w-100" src="img/blog-3.jpg" alt="">
+											<div class="p-4">
+												<a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor
+													justo diam</a>
+												<p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
+													rebum clita rebum dolor stet amet justo</p>
+											</div>
+											<div class="d-flex justify-content-between border-top p-4">
+												<div class="d-flex align-items-center">
+													<img class="rounded-circle me-2" src="img/user.jpg" width="25"
+														height="25" alt="">
+													<small>John Doe</small>
+												</div>
+												<div class="d-flex align-items-center">
+													<small class="ms-3"><i
+															class="far fa-eye text-primary me-1"></i>12345</small>
+													<small class="ms-3"><i
+															class="far fa-comment text-primary me-1"></i>123</small>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Blog End -->
+
+
+						<!-- Footer Start -->
+
+
+						<!-- Footer End -->
+
+
+						<!-- Back to Top -->
+						<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+								class="bi bi-arrow-up"></i></a>
+
+
+						<!-- JavaScript Libraries -->
+						<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+						<script
+							src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+						<script src="lib/easing/easing.min.js"></script>
+						<script src="lib/waypoints/waypoints.min.js"></script>
+						<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+						<script src="lib/tempusdominus/js/moment.min.js"></script>
+						<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+						<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+						<!-- Template Javascript -->
+						<script src="js/main.js"></script>
+					</body>
 				</div>
 			</div>
 		</section>

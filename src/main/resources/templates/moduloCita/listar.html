@@ -103,14 +103,15 @@
                                                 <th scope="col">Cita</th>
                                                 <th scope="col">Usuario</th>
                                                 <th scope="col">Doctor</th>
+                                                <th scope="col">Especialidad</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr th:each="cita : ${listaCitas}">
-                                                <td th:text="${cita.id_usuario}"></td>
-                                                <td th:text="${cita.id_doctor}"></td>
-                                                <td th:text="${cita.especialidad}"></td>
-                                                <td th:text="${cita.disponibilidad}"></td>
+                                                <td th:text="${cita.usuario.nombres}"></td>
+                                                <td th:text="${cita.doctor.nombres}"></td>
+                                                <td th:text="${cita.estadoCita}"></td>
+                                                <td th:text="${cita.doctor.especialidad}"></td>
                                                 <td>
                                                     <a th:href="@{/doctor/actualizar/{id}(id=${doctor.id_doctor})}"
                                                         class="btn btn-primary" data-toggle="tooltip"
