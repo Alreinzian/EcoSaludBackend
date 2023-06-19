@@ -40,7 +40,7 @@ public class CitaController {
 	@RequestMapping(value = "/guardar", method = RequestMethod.POST)
 	public String crear(@ModelAttribute("cita") @Valid Cita cita, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			
+
 			return "moduloCita/crear";
 		}
 		citaService.crear(cita);
@@ -59,7 +59,7 @@ public class CitaController {
 	public String actualizar(@PathVariable(name = "id") Integer id, @ModelAttribute("cita") @Valid Cita cita,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			
+
 			return "moduloCita/form";
 		}
 		citaService.actualizar(cita);
@@ -72,4 +72,3 @@ public class CitaController {
 		return "redirect:/cita/listar";
 	}
 }
-

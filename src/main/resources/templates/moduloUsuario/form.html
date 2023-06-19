@@ -1,10 +1,141 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Aplicación Spring Boot</title>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head">
 </head>
+
 <body>
-    <h1>Bienvenido a mi aplicación Spring Boot</h1>
-    <p>¡Hola desde el archivo HTML!</p>
+    <header th:replace="layout/layout :: header"></header>
+    <aside th:replace="layout/layout :: sidebar"></aside>
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1 th:text="${titulo}"></h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/ventasOnline/">Home</a></li>
+                    <li class="breadcrumb-item">Usuario</li>
+                    <li class="breadcrumb-item"><a href="/listar">Tabla</a></li>
+                    <li class="breadcrumb-item active" th:text="${subTitulo}"></li>
+                </ol>
+            </nav>
+        </div>
+        <section class="section">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">ACTUALIZAR USUARIO</h5>
+                            <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post">
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Id</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{id_usuario}"
+                                            th:errorclass="'form-control alert-danger'" readonly>
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('id_usuario')}"
+                                            th:errors="*{id_usuario}"></small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Nombres</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{nombres}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('nombres')}"
+                                            th:errors="*{nombres}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Apellido Paterno</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{apellidoPaterno}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger"
+                                            th:if="${#fields.hasErrors('apellidoPaterno')}"
+                                            th:errors="*{apellidoPaterno}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Apellido Materno</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{apellidoMaterno}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger"
+                                            th:if="${#fields.hasErrors('apellidoMaterno')}"
+                                            th:errors="*{apellidoMaterno}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{fechaNac}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaNac')}"
+                                            th:errors="*{fechaNac}"></small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Correo</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{correo}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('correo')}"
+                                            th:errors="*{correo}"></small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Contraseña</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{password}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}"
+                                            th:errors="*{password}"></small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">DNI</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{dni}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
+                                            th:errors="*{dni}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Telefono</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{telefono}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}"
+                                            th:errors="*{telefono}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Dirección</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{direccion}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('direccion')}"
+                                            th:errors="*{direccion}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-10 offset-lg-2 text-center">
+                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer th:replace="layout/layout :: footer"></footer>
+
 </body>
+
 </html>
