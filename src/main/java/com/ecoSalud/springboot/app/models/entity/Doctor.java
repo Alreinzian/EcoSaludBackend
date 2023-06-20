@@ -55,6 +55,7 @@ public class Doctor {
     @Basic(optional = false)
     @Column(name = "disponibilidad")
     private String disponibilidad;
+    
     // Relación con la tabla "cita"
    //@OneToMany(mappedBy = "doctor")
   /// private List<Cita> cita;
