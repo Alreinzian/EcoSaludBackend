@@ -2,179 +2,292 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head th:replace="layout/layout :: head">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-    <style>
-        .main {
-            padding-top: 20px;
-        }
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+<style>
+.main {
+	padding-top: 20px;
+}
 
-        .pagetitle {
-            margin-bottom: 20px;
-        }
+.pagetitle {
+	margin-bottom: 20px;
+}
 
-        .breadcrumb {
-            background-color: #f8f9fa;
-            margin-bottom: 0;
-        }
+.breadcrumb {
+	background-color: #f8f9fa;
+	margin-bottom: 0;
+}
 
-        .card-title {
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+.card-title {
+	font-weight: bold;
+	margin-bottom: 20px;
+}
 
-        .table-responsive {
-            margin-bottom: 20px;
-            overflow-x: auto;
-        }
+.table-responsive {
+	margin-bottom: 20px;
+	overflow-x: auto;
+}
 
-        .table td,
-        .table th {
-            white-space: nowrap;
-        }
+.table td, .table th {
+	white-space: nowrap;
+}
 
-        body {
-            background-color: #f1f1f1;
-        }
+body {
+	background-color: #f1f1f1;
+}
 
-        .card {
-            background-color: #ffffff;
-        }
+.card {
+	background-color: #ffffff;
+}
 
-        .card-body {
-            background-color: #f8f9fa;
-        }
+.card-body {
+	background-color: #f8f9fa;
+}
 
-        .table {
-            background-color: #ffffff;
-        }
+.table {
+	background-color: #ffffff;
+}
 
-        .btn-actions {
-            display: flex;
-            gap: 5px;
-        }
+.btn-actions {
+	display: flex;
+	gap: 5px;
+}
 
-        /* Estilos personalizados para el botón de búsqueda */
-        .btn-buscar {
-            background-color: #007bff;
-            border-color: #007bff;
-            color: #fff;
-        }
+/* Estilos personalizados para el botón de búsqueda */
+.btn-buscar {
+	background-color: #007bff;
+	border-color: #007bff;
+	color: #fff;
+}
 
-        .btn-buscar:hover {
-            background-color: #0069d9;
-            border-color: #0062cc;
-            color: #fff;
-        }
+.btn-buscar:hover {
+	background-color: #0069d9;
+	border-color: #0062cc;
+	color: #fff;
+}
 
-        .btn-buscar:focus {
-            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
-            outline: 0;
-        }
-    </style>
+.btn-buscar:focus {
+	box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+	outline: 0;
+}
+</style>
 </head>
 
 <body>
-    <header th:replace="layout/layout :: header"></header>
-    <aside th:replace="layout/layout :: sidebar"></aside>
-    <main id="main" class="main">
-        <div class="container">
-            <div class="pagetitle">
-                <h1 th:text="${titulo}"></h1>
-                <nav>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/ecoSalud">Inicio</a></li>
-                        <li class="breadcrumb-item">Doctor</li>
-                        <li class="breadcrumb-item active">Tabla</li>
-                    </ol>
-                </nav>
-            </div>
-            <section class="section">
-                <div class="row">
-                    <div class="col-lg">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${titulo}"></h5>
-                                <div class="table-responsive">
-                                    <table id="tabla2" class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Cita</th>
-                                                <th scope="col">Usuario</th>
-                                                <th scope="col">Doctor</th>
-                                                <th scope="col">Especialidad</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr th:each="cita : ${listaCitas}">
-                                                <td th:text="${cita.usuario.nombres}"></td>
-                                                <td th:text="${cita.doctor.nombres}"></td>
-                                                <td th:text="${cita.estadoCita}"></td>
-                                                <td th:text="${cita.doctor.especialidad}"></td>
-                                                <td>
-                                                    <a th:href="@{/doctor/actualizar/{id}(id=${doctor.id_doctor})}"
-                                                        class="btn btn-primary" data-toggle="tooltip"
-                                                        data-placement="bottom" title="Actualizar Doctor">
-                                                        <i class="fas fa-edit"></i> Actualizar
-                                                    </a>
-                                                    <a th:href="@{/doctor/eliminar/{id}(id=${doctor.id_doctor})}"
-                                                        class="btn btn-danger" data-toggle="tooltip"
-                                                        data-placement="bottom" title="Eliminar Doctor">
-                                                        <i class="fas fa-trash-alt"></i> Eliminar
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
+	<header th:replace="layout/layout :: header"></header>
+	<aside th:replace="layout/layout :: sidebar"></aside>
+	<main id="main" class="main">
+		<div class="container">
+			<div class="pagetitle">
+				<h1 th:text="${titulo}"></h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="/ecoSalud">Inicio</a></li>
+						<li class="breadcrumb-item">Doctor</li>
+						<li class="breadcrumb-item active">Tabla</li>
+					</ol>
+				</nav>
+			</div>
+			<section class="section">
+				<div class="row">
+					<div class="col-lg">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title" th:text="${titulo}"></h5>
+								<div class="table-responsive">
+									<!-- Card vista implementada por mí yo sí -->
+									<div th:each="cita : ${listaCitas}" class="card">
+										<div class="card-header">
+											Citas <span th:text="${cita.idCita}"></span>
+										</div>
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="card" style="border-radius: 15px;">
+													<div class="card-body p-4">
+														<h4>Datos del paciente</h4>
+														<div class="d-flex text-black">
+															<div class="flex-shrink-0">
+																<img
+																	src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(9).webp"
+																	alt="Generic placeholder image" class="img-fluid"
+																	style="width: 180px; border-radius: 10px;" />
+															</div>
+															<div class="flex-grow-1 ms-3">
+																<h5 class="mb-1"
+																	th:text="${cita.usuario.nombres+' ' +cita.usuario.apellidoPaterno}"></h5>
+																<p class="mb-2 pb-1" style="color: #2b2a2a;">Senior
+																	Journalist</p>
+															</div>
+														</div>
+													</div>
+												</div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#tabla2").DataTable({
-                language: {
-                    decimal: "",
-                    emptyTable: "Datos no disponibles en la tabla",
-                    infoEmpty: "Mostrando 0 a 0 de 0 registros",
-                    infoFiltered: "(Filtrado de MAX registros totales)",
-                    infoPostFix: "",
-                    thousands: ",",
-                    loadingRecords: "Cargando...",
-                    processing: "Procesando...",
-                    search: "Buscar:",
-                    zeroRecords: "No se encontraron registros para la búsqueda",
-                    paginate: {
-                        first: "Primero",
-                        last: "Último",
-                        next: "Siguiente",
-                        previous: "Anterior",
-                    },
-                    aria: {
-                        sortAscending: ": Activar para ordenar ascendente",
-                        sortDescending: ": Activar para ordenar descendente",
-                    },
-                },
-                lengthMenu: [10, 25, 50, 75, 100],
-                pagingType: "full_numbers",
-            });
-            $('[data-toggle="tooltip"]').tooltip();
-            $(window).resize(function () {
-                $("#tabla2").DataTable().draw();
-            });
-        });
-    </script>
+												<div class="card" style="border-radius: 15px;">
 
-    <footer th:replace="layout/layout :: footer"></footer>
+													<div class="card-body p-4">
+														<h4>Datos del doctor</h4>
+														<div class="d-flex text-black">
+															<div class="flex-shrink-0">
+																<img
+																	src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+																	alt="Generic placeholder image" class="img-fluid"
+																	style="width: 180px; border-radius: 10px;" />
+															</div>
+															<div class="flex-grow-1 ms-3">
+																<h5 class="mb-1"
+																	th:text="${cita.doctor.nombres+' ' +cita.doctor.apellidos}"></h5>
+																<li
+																	class="list-group-item d-flex justify-content-between align-items-start">
+																	<div class="ms-2 me-auto">
+																		<div class="fw-bold">Especialidad</div>
+																		<span th:text="${cita.doctor.especialidad}"></span>
+																	</div>
+																</li>
+																<li
+																	class="list-group-item d-flex justify-content-between align-items-start">
+																	<div class="ms-2 me-auto">
+																		<div class="fw-bold">Disponibilidad</div>
+																		<span th:text="${cita.doctor.disponibilidad}"></span>
+																	</div>
+																</li>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col sm-6">
+												<div class="row  justify-content-center align-items-center">
+
+													<ul class="list-group">
+														<li
+															class="list-group-item d-flex justify-content-between align-items-start">
+															<div class="ms-2 me-auto">
+																<div class="fw-bold">Estado de la cita</div>
+																<span th:text="${cita.estadoCita}"></span>
+															</div>
+														</li>
+														<li
+															class="list-group-item d-flex justify-content-between align-items-start">
+															<div class="ms-2 me-auto">
+																<div class="fw-bold">Fecha de la cita</div>
+																<span th:text="${cita.fecha}"></span>
+															</div>
+														</li>
+														<li
+															class="list-group-item d-flex justify-content-between align-items-start">
+															<div class="ms-2 me-auto">
+																<div class="fw-bold">Hora de la cita</div>
+																<span th:text="${cita.hora}"></span>
+															</div>
+														</li>
+														<li
+															class="list-group-item d-flex justify-content-between align-items-start">
+															<div class="ms-2 me-auto">
+																<div class="fw-bold">Lugar de la cita</div>
+																<span th:text="${cita.ubicacion}"></span>
+															</div>
+														</li>
+													</ul>
+												</div>
+
+											</div>
+
+
+
+
+										</div>
+
+
+									</div>
+									<!-- Card vista implementada por mí yo sí -->
+
+									<!-- <table id="tabla2" class="table table-hover">
+										<thead>
+											<tr>
+												<th scope="col">Cita</th>
+												<th scope="col">Usuario</th>
+												<th scope="col">Doctor</th>
+												<th scope="col">Especialidad</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="cita : ${listaCitas}">
+												<td th:text="${cita.usuario.nombres}"></td>
+												<td th:text="${cita.doctor.nombres}"></td>
+												<td th:text="${cita.estadoCita}"></td>
+												<td th:text="${cita.doctor.especialidad}"></td>
+												<td><a
+													th:href="@{/doctor/actualizar/{id}(id=${doctor.id_doctor})}"
+													class="btn btn-primary" data-toggle="tooltip"
+													data-placement="bottom" title="Actualizar Doctor"> <i
+														class="fas fa-edit"></i> Actualizar
+												</a> <a
+													th:href="@{/doctor/eliminar/{id}(id=${doctor.id_doctor})}"
+													class="btn btn-danger" data-toggle="tooltip"
+													data-placement="bottom" title="Eliminar Doctor"> <i
+														class="fas fa-trash-alt"></i> Eliminar
+												</a></td>
+											</tr>
+										</tbody>
+								</div>
+							</div>
+									</table>-->
+								</div>
+							</div>
+						</div>
+			</section>
+		</div>
+	</main>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#tabla2")
+									.DataTable(
+											{
+												language : {
+													decimal : "",
+													emptyTable : "Datos no disponibles en la tabla",
+													infoEmpty : "Mostrando 0 a 0 de 0 registros",
+													infoFiltered : "(Filtrado de MAX registros totales)",
+													infoPostFix : "",
+													thousands : ",",
+													loadingRecords : "Cargando...",
+													processing : "Procesando...",
+													search : "Buscar:",
+													zeroRecords : "No se encontraron registros para la búsqueda",
+													paginate : {
+														first : "Primero",
+														last : "Último",
+														next : "Siguiente",
+														previous : "Anterior",
+													},
+													aria : {
+														sortAscending : ": Activar para ordenar ascendente",
+														sortDescending : ": Activar para ordenar descendente",
+													},
+												},
+												lengthMenu : [ 10, 25, 50, 75,
+														100 ],
+												pagingType : "full_numbers",
+											});
+							$('[data-toggle="tooltip"]').tooltip();
+							$(window).resize(function() {
+								$("#tabla2").DataTable().draw();
+							});
+						});
+	</script>
+
+	<footer th:replace="layout/layout :: footer"></footer>
 </body>
 
 </html>
