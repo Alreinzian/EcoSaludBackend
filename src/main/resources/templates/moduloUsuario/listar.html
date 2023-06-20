@@ -2,10 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head th:replace="layout/layout :: head">
-    <!-- Agrega el enlace al archivo CSS de Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-pzjw8f+ua3AWR+oX+4Fjqzg8pjcFhEA8hTO8+TfM1ckTV5qwojhCHvU5W8/d4j0f" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    
 </head>
 
 <body>
@@ -97,15 +102,50 @@
     </main>
     <footer th:replace="layout/layout :: footer"></footer>
 
-    <!-- Aquí van tus scripts y enlaces a JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#tablaUsuarios').DataTable();
+            $("#tablaUsuarios").DataTable({
+                
+                language: {
+                    decimal: "",
+                    emptyTable: "Datos no disponibles en la tabla",
+                    infoEmpty: "Mostrando 0 a 0 de 0 registros",
+                    infoFiltered: "(Filtrado de MAX registros totales)",
+                    infoPostFix: "",
+                    thousands: ",",
+                    loadingRecords: "Cargando...",
+                    processing: "Procesando...",
+                    search: "Buscar:",
+                    zeroRecords: "No se encontraron registros para la búsqueda",
+                    paginate: {
+                        first: "Primero",
+                        last: "Último",
+                        next: "Siguiente",
+                        previous: "Anterior",
+                    },
+                    aria: {
+                        sortAscending: ": Activar para ordenar ascendente",
+                        sortDescending: ": Activar para ordenar descendente",
+                    },
+                },
+                lengthMenu: [10, 25, 50, 75, 100],
+                pagingType: "full_numbers",
+            });
+            $('[data-toggle="tooltip"]').tooltip();
+            $(window).resize(function () {
+                $("#tablaUsuarios").DataTable().draw();
+            });
         });
     </script>
 </body>
