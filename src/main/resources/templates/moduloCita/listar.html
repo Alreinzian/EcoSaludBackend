@@ -96,8 +96,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${titulo}"></h5>
-                                <div class="table-responsive">
-                                    <!-- Card vista implementada por mí yo sí -->
+                                <div class="table-responsive" id="lista-citas">
                                     <div th:each="cita : ${listaCitas}" class="card">
                                         <div class="card-header">
                                             Citas <span th:text="${cita.idCita}"></span>
@@ -135,9 +134,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="card" style="border-radius: 15px;">
-
                                                     <div class="card-body p-4">
                                                         <h4>Datos del doctor</h4>
                                                         <div class="d-flex text-black">
@@ -226,7 +223,6 @@
             </section>
         </div>
     </main>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
