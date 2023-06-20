@@ -1,0 +1,70 @@
+name: Deploy image to web app service [Azure]
+
+on:
+  push:
+    branches:
+      - produccion
+
+jobs:
+
+  dockerize-and-upload:
+    runs-on: ubuntu-22.04
+
+    steps:
+
+      - name: Copiar el repositorio
+        uses: actions/checkout@v3
+        with:
+          ref: produccion
+
+      - name: Definir java 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Construir jar con maven
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+        run: mvn -q -B package --file pom.xml
+
+      - name: Autenticación en DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Construir la imagen y subirla a DockerHub
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/ecosalud:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/ecosalud:latest
+          file: ./dockerfile.prod
+          context: .
+
+  azure-deploy-app-services:
+    needs: dockerize-and-upload
+    runs-on: ubuntu-22.04
+    
+    steps:
+
+    - name: Autenticación en Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Copiar el repositorio
+      uses: actions/checkout@v3
+      with:
+        ref: produccion
+
+    - name: 'Deploy to Azure Web App for Container'
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ci-cd-ecosalud
+        images: ${{ secrets.DOCKERHUB_USERNAME }}/ecosalud:latest
+        configuration-file: ./docker-compose.prod.yml
