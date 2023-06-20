@@ -1,3 +1,180 @@
-<span>
-    a
-</span>
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+<head th:replace="layout/layout :: head">
+    <script>
+        function validarFormulario() {
+            var especialidad = document.getElementById("especialidad").value;
+            if (especialidad === "") {
+                alert("Debes seleccionar una especialidad");
+                return false; // Evita que el formulario se envíe
+            }
+        }
+
+    </script>
+</head>
+Id Nombres Apellido Paterno Apellido Materno Fecha de Nacimiento Correo Password DNI Telefono Direccion
+
+<body>
+    <header th:replace="layout/layout :: header"></header>
+    <aside th:replace="layout/layout :: sidebar"></aside>
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1 th:text="${titulo}"></h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/ecoSalud/">Home</a></li>
+                    <li class="breadcrumb-item">Usuario</li>
+                    <li class="breadcrumb-item active" th:text="${subTitulo}"></li>
+                </ol>
+            </nav>
+        </div>
+        <section class="section">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">CREAR USUARIO</h5>
+                            <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post">
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Nombres</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{nombres}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('nombres')}"
+                                            th:errors="*{nombres}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Apellido Paterno</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{apellidoPaterno}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger"
+                                            th:if="${#fields.hasErrors('apellidoPaterno')}"
+                                            th:errors="*{apellidoPaterno}"></small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Apellido Materno</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{apellidoMaterno}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger"
+                                            th:if="${#fields.hasErrors('apellidoMaterno')}"
+                                            th:errors="*{apellidoMaterno}"></small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="fechaNac" name="fechaNac" class="form-control">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaNac')}"
+                                            th:errors="*{fechaNac}"></small>
+                                    </div>
+                                </div>
+                                <script>
+                                    flatpickr("#fechaNac", {
+                                        dateFormat: "Y-m-d",
+                                        locale: "es",
+                                        allowInput: true,
+                                        maxDate: "today",
+                                        position: "above",
+                                        mode: "multiple"
+                                    });
+                                </script>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Correo</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="correo" name="correo" class="form-control">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('correo')}"
+                                            th:errors="*{correo}"></small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Contraseña</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" id="password" name="password" class="form-control">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}"
+                                            th:errors="*{password}"></small>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="button" id="showPasswordBtn" class="btn btn-primary">
+                                            <i class="fas fa-eye" id="eyeOpen"></i>
+                                            <i class="fas fa-eye-slash" id="eyeClosed"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    const passwordInput = document.getElementById('password');
+                                    const showPasswordBtn = document.getElementById('showPasswordBtn');
+                                    const eyeOpenIcon = document.getElementById('eyeOpen');
+                                    const eyeClosedIcon = document.getElementById('eyeClosed');
+
+                                    showPasswordBtn.addEventListener('click', function () {
+                                        if (passwordInput.type === 'password') {
+                                            passwordInput.type = 'text';
+                                            eyeOpenIcon.style.display = 'none';
+                                            eyeClosedIcon.style.display = 'inline';
+                                        } else {
+                                            passwordInput.type = 'password';
+                                            eyeOpenIcon.style.display = 'inline';
+                                            eyeClosedIcon.style.display = 'none';
+                                        }
+                                    });
+                                </script>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">DNI</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{dni}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
+                                            th:errors="*{dni}"></small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Telefono</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{telefono}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}"
+                                            th:errors="*{telefono}"></small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Direccion</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{direccion}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('direccion')}"
+                                            th:errors="*{direccion}"></small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-sm-10 offset-lg-2 text-center">
+                                        <button type="submit" class="btn btn-primary">Crear</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>
