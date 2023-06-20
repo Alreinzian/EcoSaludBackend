@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head">
+</head>
+
+<body>
+    <header th:replace="layout/layout :: header"></header>
+    <aside th:replace="layout/layout :: sidebar"></aside>
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1 th:text="${titulo}"></h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/ecoSalud/">Home</a></li>
+                    <li class="breadcrumb-item">Doctor</li>
+                    <li class="breadcrumb-item"><a href="/listar">Tabla</a></li>
+                    <li class="breadcrumb-item active" th:text="${subTitulo}"></li>
+                </ol>
+            </nav>
+        </div>
+        <section class="section">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">CREAR CITA</h5>
+                            <form th:action="@{/cita/guardar}" th:object="${cita}" method="post">
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Nombres</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{usuario.nombres}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('usuario.nombres')}" required
+                                            th:errors="*{usuario.nombres}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Apellido Paterno</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{usuario.apellidoPaterno}" required
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('usuario.apellidoPaterno')}"
+                                            th:errors="*{usuario.apellidoPaterno}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Apellido Materno</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{usuario.apellidoPaterno}" required
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('usuario.apellidoPaterno')}"
+                                            th:errors="*{usuario.apellidoPaterno}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" th:field="*{usuario.fechaNac}" required
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('usuario.fechaNac')}"
+                                            th:errors="*{usuario.fechaNac}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">DNI</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{usuario.dni}" required
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('usuario.dni')}"
+                                            th:errors="*{usuario.dni}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Correo</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{usuario.correo}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('usuario.correo')}"
+                                            th:errors="*{usuario.correo}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Telefono</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{usuario.telefono}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('usuario.telefono')}"
+                                            th:errors="*{usuario.telefono}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Direccion</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{usuario.direccion}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('usuario.direccion')}"
+                                            th:errors="*{usuario.direccion}"></small>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Nombres de Doctor</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{doctor.nombres}"
+                                            th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('doctor.nombres')}"
+                                            th:errors="*{doctor.nombres}"></small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Especialidad del Doctor</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{doctor.especialidad}"
+                                        th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('doctor.especialidad')}"
+                                            th:errors="*{doctor.especialidad}"></small>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Disponibilidad del Doctor</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{doctor.disponibilidad}"
+                                        th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('doctor.disponibilidad')}"
+                                            th:errors="*{doctor.disponibilidad}"></small>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">El Estado de la Cita </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{estadoCita}"
+                                        th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('estadoCita')}"
+                                            th:errors="*{estadoCita}"></small>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Hora de la Cita Programada</label>
+                                    <div class="col-sm-10">
+                                        <input type="time" class="form-control" th:field="*{hora}"
+                                        th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('hora')}"
+                                        th:errors="*{hora}"></small>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Ubicación de la Cita</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{ubicacion}"
+                                        th:errorclass="'form-control alert-danger'">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('ubicacion')}"
+                                        th:errors="*{ubicacion}"></small>
+                                </div>
+
+
+                                <div class="row mb-3">
+                                    <div class="col-sm-10 offset-lg-2 text-center">
+                                        <button type="submit" class="btn btn-primary">Crear</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>

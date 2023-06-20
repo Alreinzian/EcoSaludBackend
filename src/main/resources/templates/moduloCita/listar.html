@@ -170,9 +170,7 @@
                                             </div>
                                             <div class="col sm-6 ">
                                                 <div class=" container m-3">
-
                                                     <div class="row  justify-content-center align-items-center">
-
                                                         <ul class="list-group">
                                                             <li
                                                                 class="list-group-item d-flex justify-content-between align-items-start">
@@ -209,11 +207,35 @@
                                                                     <span th:text="${cita.ubicacion}"></span>
                                                                 </div>
                                                             </li>
+                                                            <li
+                                                                class="list-group-item d-flex justify-content-between align-items-start">
+                                                                <div class="ms-2 me-auto">
+                                                                    <div class="btn-actions">
+                                                                        <a th:href="@{/cita/actualizar/{id}(id=${cita.idCita})}"
+                                                                            class="btn btn-primary"
+                                                                            data-toggle="tooltip"
+                                                                            data-placement="bottom"
+                                                                            title="Actualizar Cita">
+                                                                            <i data-feather="edit"></i>
+                                                                        </a>
+
+                                                                        <a th:href="@{/cita/eliminar/{id}(id=${cita.idCita})}"
+                                                                            class="btn btn-danger" data-toggle="tooltip"
+                                                                            data-placement="bottom"
+                                                                            title="Eliminar Cita">
+                                                                            <i data-feather="trash-2"></i>
+                                                                        </a>
+                                                                        <script
+                                                                            src="https://unpkg.com/feather-icons"></script>
+                                                                        <script>
+                                                                            feather.replace();
+                                                                        </script>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
                                                         </ul>
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -226,8 +248,19 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        function eliminarCita(citaId) {
+            // Aquí puedes agregar la lógica para eliminar la cita con el ID proporcionado
+            // Por ejemplo, puedes hacer una solicitud AJAX al servidor para eliminar la cita
+            console.log('Eliminar cita:', citaId);
+        }
 
-
+        function editarCita(citaId) {
+            // Aquí puedes agregar la lógica para editar la cita con el ID proporcionado
+            // Por ejemplo, puedes redirigir al usuario a una página de edición de citas con el ID como parámetro
+            console.log('Editar cita:', citaId);
+        }
+    </script>
     <footer th:replace="layout/layout :: footer"></footer>
 </body>
 
