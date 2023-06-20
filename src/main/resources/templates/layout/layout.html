@@ -722,18 +722,38 @@
             </li>
 
             <li class="nav-heading">Paginas</li>
-            <li class="nav-item">
+
+            <!-- Cita -->
+
+            <!-- <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#cita-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-card-checklist"></i><span>Cita</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="clientes-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <ul id="cita-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a th:href="@{moduloCita/listar}">
+                        <a th:href="{cita/listar}">
                             <i class="bi bi-circle"></i><span>Lista de Citas</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{moduloCita/crear}">
+                        <a th:href="{cita/crear}">
+                            <i class="bi bi-circle"></i><span>Registrar Cita</span>
+                        </a>
+                    </li>
+                </ul>
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#cita-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-person-badge"></i><span>Cita</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="cita-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="cita/listar">
+                            <i class="bi bi-circle"></i><span>Lista de Citas</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="cita/crear">
                             <i class="bi bi-circle"></i><span>Registrar Cita</span>
                         </a>
                     </li>
@@ -743,7 +763,7 @@
                 <a class="nav-link collapsed" data-bs-target="#doctor-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-person-badge"></i><span>Doctor</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="usuarios-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <ul id="doctor-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="doctor/listar">
                             <i class="bi bi-circle"></i><span>Lista de Doctor</span>

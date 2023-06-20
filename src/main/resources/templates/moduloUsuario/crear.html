@@ -6,18 +6,7 @@
 
 
 <head th:replace="layout/layout :: head">
-    <script>
-        function validarFormulario() {
-            var especialidad = document.getElementById("especialidad").value;
-            if (especialidad === "") {
-                alert("Debes seleccionar una especialidad");
-                return false; // Evita que el formulario se envíe
-            }
-        }
-
-    </script>
 </head>
-Id Nombres Apellido Paterno Apellido Materno Fecha de Nacimiento Correo Password DNI Telefono Direccion
 
 <body>
     <header th:replace="layout/layout :: header"></header>

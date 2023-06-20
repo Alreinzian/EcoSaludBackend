@@ -20,12 +20,12 @@ import com.ecoSalud.springboot.app.services.DoctorService;
 @RequestMapping("/doctor")
 public class DoctorController {
 	@Autowired
-	private DoctorService servicio;
+	private DoctorService doctorService;
 
 	@RequestMapping("/listar")
 	public String listar(Model model) {
 
-		List<Doctor> listaDoctores = servicio.buscarTodo();
+		List<Doctor> listaDoctores = doctorService.buscarTodo();
 		System.out.println("LISTA DE DOCTORES: " + listaDoctores);
 		model.addAttribute("listaDoctores", listaDoctores);
 		return "moduloDoctor/listar";
@@ -40,21 +40,21 @@ public class DoctorController {
 
 	@RequestMapping(value = "/guardar", method = RequestMethod.POST)
 	public String crear(@ModelAttribute("doctor") Doctor doctor) {
-		servicio.crear(doctor);
+		doctorService.crear(doctor);
 		return "redirect:/doctor/listar";
 	}
 
-	@RequestMapping(value = "/actualizar/{id}")
-	public ModelAndView editar(@PathVariable(name = "id") int id) {
+	@RequestMapping(value = "/actualizar/{id}", method = RequestMethod.GET)
+	public ModelAndView editar(@PathVariable(name = "id") Integer id) {
 		ModelAndView mav = new ModelAndView("moduloDoctor/form");
-		Doctor doctor = servicio.buscarPorId(id);
+		Doctor doctor = doctorService.buscarPorId(id);
 		mav.addObject("doctor", doctor);
 		return mav;
 	}
 
-	@RequestMapping(value = "/eliminar/{id}")
-	public String eliminar(@PathVariable(name = "id") int id) {
-		servicio.eliminarDoctor(id);
+	@RequestMapping(value = "/eliminar/{id}", method = RequestMethod.GET)
+	public String eliminar(@PathVariable(name = "id") Integer id) {
+		doctorService.eliminarDoctor(id);
 		return "redirect:/doctor/listar";
 	}
 
