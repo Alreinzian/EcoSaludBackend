@@ -29,7 +29,7 @@
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">Nombres</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" th:field="*{nombres}"
+                                        <input type="text" class="form-control" th:field="*{nombres}" required
                                             th:errorclass="'form-control alert-danger'">
                                         <small class="form-text text-danger" th:if="${#fields.hasErrors('nombres')}"
                                             th:errors="*{nombres}"></small>
@@ -38,7 +38,7 @@
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">Apellidos</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" th:field="*{apellidos}"
+                                        <input type="text" class="form-control" th:field="*{apellidos}" required
                                             th:errorclass="'form-control alert-danger'">
                                         <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}"
                                             th:errors="*{apellidos}"></small>
@@ -48,7 +48,7 @@
                                     <label for="inputText" class="col-sm-2 col-form-label">Disponibilidad</label>
                                     <div class="col-sm-10">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Lunes"
+                                            <input class="form-check-input" type="checkbox" value="Lunes" 
                                                 name="disponibilidad" id="disponibilidad-lunes">
                                             <label class="form-check-label" for="disponibilidad-lunes">
                                                 Lunes
@@ -105,7 +105,7 @@
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">Especialidad</label>
                                     <div class="col-sm-10">
-                                        <select class="form-select" th:field="*{especialidad}"
+                                        <select class="form-select" th:field="*{especialidad}" required
                                             th:errorclass="'form-select alert-danger'" id="especialidad">
                                             <option value="">Selecciona una especialidad</option>
                                             <option value="Cardiología">Cardiología</option>
