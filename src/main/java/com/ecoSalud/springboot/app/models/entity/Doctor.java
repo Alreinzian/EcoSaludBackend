@@ -1,7 +1,5 @@
 package com.ecoSalud.springboot.app.models.entity;
 
-
-
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -25,12 +23,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "doctor")
 @NamedQueries({
-    @NamedQuery(name = "Doctor.findAll", query = "SELECT d FROM Doctor d"),
-    @NamedQuery(name = "Doctor.findById_doctor", query = "SELECT d FROM Doctor d WHERE d.id_doctor = :id_doctor"),
-    @NamedQuery(name = "Doctor.findByNombres", query = "SELECT d FROM Doctor d WHERE d.nombres = :nombres"),
-    @NamedQuery(name = "Doctor.findByApellidos", query = "SELECT d FROM Doctor d WHERE d.apellidos = :apellidos"),
-    @NamedQuery(name = "Doctor.findByDisponibilidad", query = "SELECT d FROM Doctor d WHERE d.disponibilidad = :disponibilidad"),
-    @NamedQuery(name = "Doctor.findByEspecialidad", query = "SELECT d FROM Doctor d WHERE d.especialidad = :especialidad")
+        @NamedQuery(name = "Doctor.findAll", query = "SELECT d FROM Doctor d"),
+        @NamedQuery(name = "Doctor.findById_doctor", query = "SELECT d FROM Doctor d WHERE d.id_doctor = :id_doctor"),
+        @NamedQuery(name = "Doctor.findByNombres", query = "SELECT d FROM Doctor d WHERE d.nombres = :nombres"),
+        @NamedQuery(name = "Doctor.findByApellidos", query = "SELECT d FROM Doctor d WHERE d.apellidos = :apellidos"),
+        @NamedQuery(name = "Doctor.findByDisponibilidad", query = "SELECT d FROM Doctor d WHERE d.disponibilidad = :disponibilidad"),
+        @NamedQuery(name = "Doctor.findByEspecialidad", query = "SELECT d FROM Doctor d WHERE d.especialidad = :especialidad")
 })
 public class Doctor {
 
@@ -55,7 +53,8 @@ public class Doctor {
     @Basic(optional = false)
     @Column(name = "disponibilidad")
     private String disponibilidad;
+
     // Relación con la tabla "cita"
-   //@OneToMany(mappedBy = "doctor")
-  /// private List<Cita> cita;
+    // @OneToMany(mappedBy = "doctor")
+    /// private List<Cita> cita;
 }

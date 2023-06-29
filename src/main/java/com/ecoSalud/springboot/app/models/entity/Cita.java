@@ -13,10 +13,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "cita")
 @NamedQueries({
-    @NamedQuery(name = "Cita.findAll", query = "SELECT c FROM Cita c"),
-    @NamedQuery(name = "Cita.findByIdCita", query = "SELECT c FROM Cita c WHERE c.idCita = :idCita"),
-    @NamedQuery(name = "Cita.findByUsuario", query = "SELECT c FROM Cita c WHERE c.usuario.id_usuario = :id_usuario"),
-    @NamedQuery(name = "Cita.findByDoctor", query = "SELECT c FROM Cita c WHERE c.doctor.id_doctor = :id_doctor")
+        @NamedQuery(name = "Cita.findAll", query = "SELECT c FROM Cita c"),
+        @NamedQuery(name = "Cita.findByIdCita", query = "SELECT c FROM Cita c WHERE c.idCita = :idCita"),
+        @NamedQuery(name = "Cita.findByUsuario", query = "SELECT c FROM Cita c WHERE c.usuario.id_usuario = :id_usuario"),
+        @NamedQuery(name = "Cita.findByDoctor", query = "SELECT c FROM Cita c WHERE c.doctor.id_doctor = :id_doctor"),
+        @NamedQuery(name = "Cita.findByFecha", query = "SELECT c FROM Cita c WHERE c.fecha = :fecha"),
+        @NamedQuery(name = "Cita.findByHora", query = "SELECT c FROM Cita c WHERE c.hora = :hora"),
+        @NamedQuery(name = "Cita.findByUbicacion", query = "SELECT c FROM Cita c WHERE c.ubicacion = :ubicacion"),
+        @NamedQuery(name = "Cita.findByEstadoCita", query = "SELECT c FROM Cita c WHERE c.estadoCita = :estadoCita"),
+        @NamedQuery(name = "Cita.findByDiagnostico", query = "SELECT c FROM Cita c WHERE c.diagnostico = :diagnostico")
+
 })
 public class Cita {
 
@@ -51,4 +57,3 @@ public class Cita {
     // Getters y setters generados automáticamente por Lombok
 
 }
-
