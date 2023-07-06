@@ -18,62 +18,62 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.ecoSalud.springboot.app.models.entity.Doctor;
-import com.ecoSalud.springboot.app.services.DoctorService;
+import com.ecoSalud.springboot.app.models.entity.Horario;
+import com.ecoSalud.springboot.app.services.HorarioService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/rest/doctor")
-public class DoctorRestController {
+@RequestMapping("/rest/horario")
+public class HorarioRestController {
 
     @Autowired
-    private DoctorService doctorService;
+    private HorarioService horarioService;
 
     @GetMapping
     public ResponseEntity<Object> buscarTodo() {
-        List<Doctor> listaDoctores = doctorService.buscarTodo();
-        return new ResponseEntity<>(listaDoctores, HttpStatus.OK);
+        List<Horario> listaHorarios = horarioService.buscarTodo();
+        return new ResponseEntity<>(listaHorarios, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public ResponseEntity<Object> buscarPorId(@PathVariable("id") Integer id) {
-        Doctor doctor = doctorService.buscarPorId(id);
-        if (doctor == null)
+        Horario horario = horarioService.buscarPorId(id);
+        if (horario == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Doctor no encontrado, el ID proporcionado no es correcto");
-        return new ResponseEntity<Object>(doctor, HttpStatus.OK);
+                    "Horario no encontrado, el ID proporcionado no es correcto");
+        return new ResponseEntity<Object>(horario, HttpStatus.OK);
     }
 
     @PostMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
             consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    public ResponseEntity<Object> crear(@RequestBody Doctor doctor) {
-        Doctor nuevoDoctor = doctorService.crear(doctor);
-        return new ResponseEntity<Object>(nuevoDoctor, HttpStatus.CREATED);
+    public ResponseEntity<Object> crear(@RequestBody Horario horario) {
+        Horario nuevoHorario = horarioService.crear(horario);
+        return new ResponseEntity<Object>(nuevoHorario, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE })
-    public ResponseEntity<Object> actualizar(@PathVariable("id") Integer id, @RequestBody Doctor doctor) {
-        Doctor doctorExistente = doctorService.buscarPorId(id);
-        if (doctorExistente == null)
+    public ResponseEntity<Object> actualizar(@PathVariable("id") Integer id, @RequestBody Horario horario) {
+        Horario horarioExistente = horarioService.buscarPorId(id);
+        if (horarioExistente == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Doctor no encontrado, el ID proporcionado no es correcto");
+                    "Horario no encontrado, el ID proporcionado no es correcto");
 
-        doctor.setId_doctor(id);
-        Doctor doctorActualizado = doctorService.actualizar(doctor);
-        return new ResponseEntity<Object>(doctorActualizado, HttpStatus.OK);
+        horario.setId_horario(id);
+        Horario horarioActualizado = horarioService.actualizar(horario);
+        return new ResponseEntity<Object>(horarioActualizado, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> eliminar(@PathVariable("id") Integer id) {
-        Doctor doctorExistente = doctorService.buscarPorId(id);
-        if (doctorExistente == null)
+        Horario horarioExistente = horarioService.buscarPorId(id);
+        if (horarioExistente == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Doctor no encontrado, el ID proporcionado no es correcto");
+                    "Horario no encontrado, el ID proporcionado no es correcto");
 
-        doctorService.eliminarDoctor(id);
-        return new ResponseEntity<Object>("Doctor eliminado correctamente", HttpStatus.OK);
+        horarioService.eliminarHorario(id);
+        return new ResponseEntity<Object>("Horario eliminado correctamente", HttpStatus.OK);
     }
 }
