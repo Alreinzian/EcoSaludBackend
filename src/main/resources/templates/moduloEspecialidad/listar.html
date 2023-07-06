@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="layout/layout :: head">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <style>
+        .main {
+            padding-top: 20px;
+        }
+
+        .pagetitle {
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb {
+            background-color: #f8f9fa;
+            margin-bottom: 0;
+        }
+
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .table-responsive {
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .table td,
+        .table th {
+            white-space: nowrap;
+        }
+
+        body {
+            background-color: #f1f1f1;
+        }
+
+        .card {
+            background-color: #ffffff;
+        }
+
+        .card-body {
+            background-color: #f8f9fa;
+        }
+
+        .table {
+            background-color: #ffffff;
+        }
+
+        .btn-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        /* Estilos personalizados para el botón de búsqueda */
+        .btn-buscar {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-buscar:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+            color: #fff;
+        }
+
+        .btn-buscar:focus {
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+            outline: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header th:replace="layout/layout :: header"></header>
+    <aside th:replace="layout/layout :: sidebar"></aside>
+    <main id="main" class="main">
+        <div class="container">
+            <div class="pagetitle">
+                <h1 th:text="${titulo}"></h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/ecoSalud">Inicio</a></li>
+                        <li class="breadcrumb-item">Citas</li>
+                        <li class="breadcrumb-item active">Tabla</li>
+                    </ol>
+                </nav>
+            </div>
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${titulo}"></h5>
+                                <div class="table-responsive" id="lista-citas">
+                                    <div th:each="cita : ${listaCitas}" class="card">
+                                        <div class="card-header">
+                                            Citas <span th:text="${cita.idCita}"></span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="card" style="border-radius: 15px;">
+                                                    <div class="card-body p-4">
+                                                        <h4>Datos del paciente</h4>
+                                                        <div class="d-flex text-black">
+                                                            <div class="flex-shrink-0">
+                                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(9).webp"
+                                                                    alt="Generic placeholder image" class="img-fluid"
+                                                                    style="width: 180px; border-radius: 10px;" />
+                                                            </div>
+                                                            <div class="flex-grow-1 ms-3">
+                                                                <h5 class="mb-1"
+                                                                    th:text="${cita.usuario.nombres+' ' +cita.usuario.apellidoPaterno}">
+                                                                </h5>
+                                                                <li
+                                                                    class="list-group-item d-flex justify-content-between align-items-start">
+                                                                    <div class="ms-2 me-auto">
+                                                                        <div class="fw-bold">Correo</div>
+                                                                        <span th:text="${cita.usuario.correo}"></span>
+                                                                    </div>
+                                                                </li>
+                                                                <li
+                                                                    class="list-group-item d-flex justify-content-between align-items-start">
+                                                                    <div class="ms-2 me-auto">
+                                                                        <div class="fw-bold">Teléfono</div>
+                                                                        <span th:text="${cita.usuario.telefono}"></span>
+                                                                    </div>
+                                                                </li>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card" style="border-radius: 15px;">
+                                                    <div class="card-body p-4">
+                                                        <h4>Datos del doctor</h4>
+                                                        <div class="d-flex text-black">
+                                                            <div class="flex-shrink-0">
+                                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                                                                    alt="Generic placeholder image" class="img-fluid"
+                                                                    style="width: 180px; border-radius: 10px;" />
+                                                            </div>
+                                                            <div class="flex-grow-1 ms-3">
+                                                                <h5 class="mb-1"
+                                                                    th:text="${cita.doctor.nombres+' ' +cita.doctor.apellidos}">
+                                                                </h5>
+                                                                <li
+                                                                    class="list-group-item d-flex justify-content-between align-items-start">
+                                                                    <div class="ms-2 me-auto">
+                                                                        <div class="fw-bold">Especialidad</div>
+                                                                        <span
+                                                                            th:text="${cita.doctor.especialidad}"></span>
+                                                                    </div>
+                                                                </li>
+                                                                <li
+                                                                    class="list-group-item d-flex justify-content-between align-items-start">
+                                                                    <div class="ms-2 me-auto">
+                                                                        <div class="fw-bold">Disponibilidad</div>
+                                                                        <span
+                                                                            th:text="${cita.doctor.disponibilidad}"></span>
+                                                                    </div>
+                                                                </li>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col sm-6 ">
+                                                <div class=" container m-3">
+                                                    <div class="row  justify-content-center align-items-center">
+                                                        <ul class="list-group">
+                                                            <li
+                                                                class="list-group-item d-flex justify-content-between align-items-start">
+                                                                <div class="ms-2 me-auto">
+                                                                    <div class="fw-bold">Estado de la cita</div>
+                                                                    <span th:text="${cita.estadoCita}"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li
+                                                                class="list-group-item d-flex justify-content-between align-items-start">
+                                                                <div class="ms-2 me-auto">
+                                                                    <div class="fw-bold">Motivo de la cita</div>
+                                                                    <span th:text="${cita.diagnostico}"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li
+                                                                class="list-group-item d-flex justify-content-between align-items-start">
+                                                                <div class="ms-2 me-auto">
+                                                                    <div class="fw-bold">Fecha de la cita</div>
+                                                                    <span th:text="${cita.fecha}"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li
+                                                                class="list-group-item d-flex justify-content-between align-items-start">
+                                                                <div class="ms-2 me-auto">
+                                                                    <div class="fw-bold">Hora de la cita</div>
+                                                                    <span th:text="${cita.hora}"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li
+                                                                class="list-group-item d-flex justify-content-between align-items-start">
+                                                                <div class="ms-2 me-auto">
+                                                                    <div class="fw-bold">Lugar de la cita</div>
+                                                                    <span th:text="${cita.ubicacion}"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li
+                                                                class="list-group-item d-flex justify-content-between align-items-start">
+                                                                <div class="ms-2 me-auto">
+                                                                    <div class="btn-actions">
+                                                                        <a th:href="@{/cita/actualizar/{id}(id=${cita.idCita})}"
+                                                                            class="btn btn-primary"
+                                                                            data-toggle="tooltip"
+                                                                            data-placement="bottom"
+                                                                            title="Actualizar Cita">
+                                                                            <i data-feather="edit"></i>
+                                                                        </a>
+
+                                                                        <a th:href="@{/cita/eliminar/{id}(id=${cita.idCita})}"
+                                                                            class="btn btn-danger" data-toggle="tooltip"
+                                                                            data-placement="bottom"
+                                                                            title="Eliminar Cita">
+                                                                            <i data-feather="trash-2"></i>
+                                                                        </a>
+                                                                        <script
+                                                                            src="https://unpkg.com/feather-icons"></script>
+                                                                        <script>
+                                                                            feather.replace();
+                                                                        </script>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </section>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        function eliminarCita(citaId) {
+            // Aquí puedes agregar la lógica para eliminar la cita con el ID proporcionado
+            // Por ejemplo, puedes hacer una solicitud AJAX al servidor para eliminar la cita
+            console.log('Eliminar cita:', citaId);
+        }
+
+        function editarCita(citaId) {
+            // Aquí puedes agregar la lógica para editar la cita con el ID proporcionado
+            // Por ejemplo, puedes redirigir al usuario a una página de edición de citas con el ID como parámetro
+            console.log('Editar cita:', citaId);
+        }
+    </script>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>
