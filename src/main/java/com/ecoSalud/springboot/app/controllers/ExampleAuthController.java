@@ -27,26 +27,39 @@ public class ExampleAuthController {
     // = http://localhost:8080/ecoSalud/init
     // para todas las rutas
     // ==========================================================
+
+    @GetMapping( "/loginForm" )
+    public String loginForm( Model model ) {
+
+        return "tmp_login_juguete";
+    }
+
     @GetMapping( "/init" )
     public String home( Model model ) {
+
+        model.addAttribute("titulo", "Cuenta de usuario");
 
         // evaluar si existe una sesión activa
         if ( userAccount.isActiveSession() ) {
 
-            // opcional: verificar si el token actal es valido
+            // opcional: verificar si el token de sesion actal es valido
                 HttpStatus responseStatus = authService.checkSession();
 
                 if ( responseStatus == HttpStatus.OK ) {
                     // TOKEN VALIDADO
                 }
             // ===========
+
+            // otyros atributos
             model.addAttribute( "user", userAccount );
+
+            // ruta a la que acceder
+            return "tmp_view";
         }
 
+        // redireccion a la vista login en caso de no tener unsa sesion activa
+        return "redirect:/loginForm";
 
-        model.addAttribute("titulo", "Cuenta de usuario");
-
-        return "tmp_view";
     }
 
 
