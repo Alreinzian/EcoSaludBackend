@@ -1,0 +1,27 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" lang="es" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div th:text="${ titulo }"></div>
+
+    <div th:if="${ user != null }">
+        <p>
+            Bienvenido! 
+            <span th:text="${ user.displayName }"></span>
+        </p>
+    
+        <div th:text="${ user.email }"></div>
+    </div>
+
+    <div th:unless="${ user != null }">
+        <h3>No hay nada que mostrar 🤺 (No hay ninguno loggeado)</h3>
+        <img src="https://media.tenor.com/vVwTzY_SuI0AAAAS/risa-risas.gif" alt="" width="150px">
+    </div>
+    
+</body>
+</html>
