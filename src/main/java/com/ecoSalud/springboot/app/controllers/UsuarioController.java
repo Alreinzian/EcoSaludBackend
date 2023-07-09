@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +24,7 @@ public class UsuarioController {
 
     @RequestMapping("/listar")
     public String listar(Model model) {
+
         List<Usuario> listaUsuarios = usuarioService.buscarTodo();
         System.out.println("LISTA DE USUARIOS: " + listaUsuarios);
         model.addAttribute("listaUsuarios", listaUsuarios);
@@ -39,11 +39,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/guardar", method = RequestMethod.POST)
-    public String crear(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            // Manejar errores de validación, si es necesario
-            return "moduloUsuario/crear";
-        }
+    public String crear(@ModelAttribute("usuario") Usuario usuario) {
         usuarioService.crear(usuario);
         return "redirect:/usuario/listar";
     }
@@ -54,17 +50,6 @@ public class UsuarioController {
         Usuario usuario = usuarioService.buscarPorId(id);
         mav.addObject("usuario", usuario);
         return mav;
-    }
-
-    @RequestMapping(value = "/actualizar/{id}", method = RequestMethod.POST)
-    public String actualizar(@PathVariable(name = "id") Integer id, @ModelAttribute("usuario") @Valid Usuario usuario,
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            // Manejar errores de validación, si es necesario
-            return "moduloUsuario/form";
-        }
-        usuarioService.actualizar(usuario);
-        return "redirect:/usuario/listar";
     }
 
     @RequestMapping(value = "/eliminar/{id}", method = RequestMethod.GET)

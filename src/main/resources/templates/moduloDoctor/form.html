@@ -12,7 +12,7 @@
             <h1 th:text="${titulo}"></h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/ventasOnline/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="ecoSalud/">Home</a></li>
                     <li class="breadcrumb-item">Doctor</li>
                     <li class="breadcrumb-item"><a href="/listar">Tabla</a></li>
                     <li class="breadcrumb-item active" th:text="${subTitulo}"></li>
@@ -25,6 +25,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title text-center">ACTUALIZAR DOCTOR</h5>
+
                             <form th:action="@{/doctor/guardar}" th:object="${doctor}" method="post">
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">Id</label>
@@ -35,25 +36,60 @@
                                             th:errors="*{id_doctor}"></small>
                                     </div>
                                 </div>
-
                                 <div class="row mb-3">
-                                    <label for="inputText" class="col-sm-2 col-form-label">Nombres</label>
+                                    <label for="inputNombres" class="col-sm-2 col-form-label">Nombres</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" th:field="*{nombres}"
+                                        <input type="text" class="form-control" id="inputNombres"
+                                            oninput="validarLetras()" th:field="*{nombres}" required
                                             th:errorclass="'form-control alert-danger'">
-                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('nombres')}"
-                                            th:errors="*{nombres}"></small>
+                                        <small id="errorNombres" class="form-text text-danger"
+                                            th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}"></small>
                                     </div>
                                 </div>
+                                <script>function validarLetras() {
+                                        var inputNombres = document.getElementById('inputNombres');
+                                        var errorNombres = document.getElementById('errorNombres');
+                                        var inputValue = inputNombres.value;
+                                        var soloLetras = /^[A-Za-z]+$/;
+
+                                        if (!soloLetras.test(inputValue)) {
+                                            inputNombres.value = inputValue.replace(/[^A-Za-z]+/g, '');
+                                            errorNombres.textContent = "Solo se permiten letras en el campo de nombres.";
+                                        } else {
+                                            errorNombres.textContent = "";
+                                        }
+                                    }
+
+
+                                </script>
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">Apellidos</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" th:field="*{apellidos}"
+                                        <input type="text" class="form-control" id="inputApellidos"
+                                            oninput="validarLetrasApellidos()" th:field="*{apellidos}" required
                                             th:errorclass="'form-control alert-danger'">
-                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}"
-                                            th:errors="*{apellidos}"></small>
+                                        <small id="errorApellidos" class="form-text text-danger"
+                                            th:if="${#fields.hasErrors('apellidos')}">
+                                            Solo se permiten letras en el campo de apellidos.
+                                        </small>
                                     </div>
                                 </div>
+                                <script>
+                                    function validarLetrasApellidos() {
+                                        var inputApellidos = document.getElementById('inputApellidos');
+                                        var errorApellidos = document.getElementById('errorApellidos');
+                                        var inputValue = inputApellidos.value;
+                                        var soloLetras = /^[A-Za-z]+$/;
+
+                                        if (!soloLetras.test(inputValue)) {
+                                            inputApellidos.value = inputValue.replace(/[^A-Za-z]+/g, '');
+                                            errorApellidos.style.display = 'block';
+                                        } else {
+                                            errorApellidos.style.display = 'none';
+                                        }
+                                    }
+
+                                </script>
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">Disponibilidad</label>
                                     <div class="col-sm-10">
@@ -145,6 +181,7 @@
         </section>
     </main>
     <footer th:replace="layout/layout :: footer"></footer>
+    <script src="/src/main/resources/static/js/main.js"></script>
 </body>
 
 </html>

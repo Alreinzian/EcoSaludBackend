@@ -3,76 +3,16 @@
 
 <head th:replace="layout/layout :: head">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-    <style>
-        .main {
-            padding-top: 20px;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
-        .pagetitle {
-            margin-bottom: 20px;
-        }
+<body>
 
-        .breadcrumb {
-            background-color: #f8f9fa;
-            margin-bottom: 0;
-        }
+</body>
 
-        .card-title {
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+</html>
 
-        .table-responsive {
-            margin-bottom: 20px;
-            overflow-x: auto;
-        }
 
-        .table td,
-        .table th {
-            white-space: nowrap;
-        }
-
-        body {
-            background-color: #f1f1f1;
-        }
-
-        .card {
-            background-color: #ffffff;
-        }
-
-        .card-body {
-            background-color: #f8f9fa;
-        }
-
-        .table {
-            background-color: #ffffff;
-        }
-
-        .btn-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        /* Estilos personalizados para el botón de búsqueda */
-        .btn-buscar {
-            background-color: #007bff;
-            border-color: #007bff;
-            color: #fff;
-        }
-
-        .btn-buscar:hover {
-            background-color: #0069d9;
-            border-color: #0062cc;
-            color: #fff;
-        }
-
-        .btn-buscar:focus {
-            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
-            outline: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -84,7 +24,7 @@
                 <h1 th:text="${titulo}"></h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/home">Bienvenido</a></li>
+
                         <li class="breadcrumb-item"><a href="/ecoSalud">Inicio</a></li>
                         <li class="breadcrumb-item">Doctor</li>
                         <li class="breadcrumb-item active">Tabla</li>
@@ -101,6 +41,7 @@
                                     <table id="tabla2" class="table table-hover">
                                         <thead>
                                             <tr>
+                                                <th scope="col">ID</th>
                                                 <th scope="col">Nombres</th>
                                                 <th scope="col">Apellidos</th>
                                                 <th scope="col">Especialidad</th>
@@ -110,6 +51,7 @@
                                         </thead>
                                         <tbody>
                                             <tr th:each="doctor : ${listaDoctores}">
+                                                <td th:text="${doctor.id_doctor}"></td>
                                                 <td th:text="${doctor.nombres}"></td>
                                                 <td th:text="${doctor.apellidos}"></td>
                                                 <td th:text="${doctor.especialidad}"></td>
@@ -118,13 +60,18 @@
                                                     <a th:href="@{/doctor/actualizar/{id}(id=${doctor.id_doctor})}"
                                                         class="btn btn-primary" data-toggle="tooltip"
                                                         data-placement="bottom" title="Actualizar Doctor">
-                                                        <i class="fas fa-edit"></i> Actualizar
+                                                        <i data-feather="edit"></i>
                                                     </a>
+
                                                     <a th:href="@{/doctor/eliminar/{id}(id=${doctor.id_doctor})}"
                                                         class="btn btn-danger" data-toggle="tooltip"
                                                         data-placement="bottom" title="Eliminar Doctor">
-                                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                                        <i data-feather="trash-2"></i>
                                                     </a>
+                                                    <script src="https://unpkg.com/feather-icons"></script>
+                                                    <script>
+                                                        feather.replace();
+                                                    </script>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -141,6 +88,15 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    
     <script>
         $(document).ready(function () {
             $("#tabla2").DataTable({

@@ -2,77 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head th:replace="layout/layout :: head">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-    <style>
-        .main {
-            padding-top: 20px;
-        }
-
-        .pagetitle {
-            margin-bottom: 20px;
-        }
-
-        .breadcrumb {
-            background-color: #f8f9fa;
-            margin-bottom: 0;
-        }
-
-        .card-title {
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .table-responsive {
-            margin-bottom: 20px;
-            overflow-x: auto;
-        }
-
-        .table td,
-        .table th {
-            white-space: nowrap;
-        }
-
-        body {
-            background-color: #f1f1f1;
-        }
-
-        .card {
-            background-color: #ffffff;
-        }
-
-        .card-body {
-            background-color: #f8f9fa;
-        }
-
-        .table {
-            background-color: #ffffff;
-        }
-
-        .btn-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        /* Estilos personalizados para el botón de búsqueda */
-        .btn-buscar {
-            background-color: #007bff;
-            border-color: #007bff;
-            color: #fff;
-        }
-
-        .btn-buscar:hover {
-            background-color: #0069d9;
-            border-color: #0062cc;
-            color: #fff;
-        }
-
-        .btn-buscar:focus {
-            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
-            outline: 0;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    
 </head>
 
 <body>
@@ -84,76 +22,101 @@
                 <h1 th:text="${titulo}"></h1>
                 <nav>
                     <ol class="breadcrumb">
+
                         <li class="breadcrumb-item"><a href="/ecoSalud">Inicio</a></li>
-                        <li class="breadcrumb-item">Usuario</li>
+                        <li class="breadcrumb-item">Usuarios</li>
                         <li class="breadcrumb-item active">Tabla</li>
                     </ol>
                 </nav>
             </div>
-            <section class="section">
-                <div class="row">
-                    <div class="col-lg">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${titulo}"></h5>
-                                <div class="table-responsive">
-                                    <table id="tabla3" class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Id</th>
-                                                <th scope="col">Nombres</th>
-                                                <th scope="col">Apellido Paterno</th>
-                                                <th scope="col">Apellido Materno</th>
-                                                <th scope="col">Fecha de Nacimiento</th>
-                                                <th scope="col">Correo</th>
-                                                <th scope="col">Password</th>
-                                                <th scope="col">DNI</th>
-                                                <th scope="col">Telefono</th>
-                                                <th scope="col">Direccion</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr th:each="usuario : ${listaUsuarios}">
-                                                <td th:text="${usuario.id_usuario}"></td>
-                                                <td th:text="${usuario.nombres}"></td>
-                                                <td th:text="${usuario.apellidoPaterno}"></td>
-                                                <td th:text="${usuario.apellidoMaterno}"></td>
-                                                <td th:text="${usuario.fechaNac}"></td>
-                                                <td th:text="${usuario.correo}"></td>
-                                                <td th:text="${usuario.password}"></td>
-                                                <td th:text="${usuario.dni}"></td>
-                                                <td th:text="${usuario.telefono}"></td>
-                                                <td th:text="${usuario.direccion}"></td>
-                                                <td>
-                                                    <a th:href="@{/usuario/actualizar/{id}(id=${usuario.id_usuario})}"
-                                                        class="btn btn-primary" data-toggle="tooltip"
-                                                        data-placement="bottom" title="Actualizar Usuario">
-                                                        <i class="fas fa-edit"></i> Actualizar
-                                                    </a>
-                                                    <a th:href="@{/usuario/eliminar/{id}(id=${usuario.id_usuario})}"
-                                                        class="btn btn-danger" data-toggle="tooltip"
-                                                        data-placement="bottom" title="Eliminar usuario">
-                                                        <i class="fas fa-trash-alt"></i> Eliminar
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+            <!-- Contenido principal -->
+            <div class="container">
+                <!-- Resto del contenido -->
+                <section class="section">
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Resto del contenido -->
+                                    <div class="table-responsive">
+                                        <table id="tablaUsuarios" class="table table-hover">
+                                            <!-- Encabezado de la tabla -->
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col">Id</th>
+                                                    <th scope="col">Nombres</th>
+                                                    <th scope="col">Apellido Paterno</th>
+                                                    <th scope="col">Apellido Materno</th>
+                                                    <th scope="col">Fecha de Nacimiento</th>
+                                                    <th scope="col">Correo</th>
+                                                    <th scope="col">Password</th>
+                                                    <th scope="col">DNI</th>
+                                                    <th scope="col">Telefono</th>
+                                                    <th scope="col">Direccion</th>
+                                                    <th scope="col">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <!-- Cuerpo de la tabla -->
+                                            <tbody>
+                                                <!-- Iteración sobre la lista de usuarios -->
+                                                <tr th:each="usuario : ${listaUsuarios}">
+                                                    <td th:text="${usuario.id_usuario}"></td>
+                                                    <td th:text="${usuario.nombres}"></td>
+                                                    <td th:text="${usuario.apellidoPaterno}"></td>
+                                                    <td th:text="${usuario.apellidoMaterno}"></td>
+                                                    <td th:text="${usuario.fechaNac}"></td>
+                                                    <td th:text="${usuario.correo}"></td>
+                                                    <td><input type="password" value="**********" disabled></td>
+                                                    <td th:text="${usuario.dni}"></td>
+                                                    <td th:text="${usuario.telefono}"></td>
+                                                    <td th:text="${usuario.direccion}"></td>
+                                                    <td>
+                                                        <a th:href="@{/usuario/actualizar/{id}(id=${usuario.id_usuario})}"
+                                                            class="btn btn-primary" data-toggle="tooltip"
+                                                            data-placement="bottom" title="Actualizar Usuario">
+                                                            <i data-feather="edit"></i>
+                                                        </a>
+
+                                                        <a th:href="@{/usuario/eliminar/{id}(id=${usuario.id_usuario})}"
+                                                            class="btn btn-danger" data-toggle="tooltip"
+                                                            data-placement="bottom" title="Eliminar usuario">
+                                                            <i data-feather="trash-2"></i>
+                                                        </a>
+                                                        <script src="https://unpkg.com/feather-icons"></script>
+                                                        <script>
+                                                            feather.replace();
+                                                        </script>
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
     </main>
+    <footer th:replace="layout/layout :: footer"></footer>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("#tabla3").DataTable({
+            $("#tablaUsuarios").DataTable({
+                
                 language: {
                     decimal: "",
                     emptyTable: "Datos no disponibles en la tabla",
@@ -181,12 +144,10 @@
             });
             $('[data-toggle="tooltip"]').tooltip();
             $(window).resize(function () {
-                $("#tabla3").DataTable().draw();
+                $("#tablaUsuarios").DataTable().draw();
             });
         });
     </script>
-
-    <footer th:replace="layout/layout :: footer"></footer>
 </body>
 
 </html>
