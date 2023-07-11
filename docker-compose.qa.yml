@@ -1,0 +1,13 @@
+version: '1.0'
+
+services:
+  ms-curso:
+    container_name: ecosalud-qa
+    image: ecosalud:latest
+    build: 
+      context: .
+      dockerfile: dockerfile.qa
+    ports:
+      - 8080:8082
+
+  

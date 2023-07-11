@@ -1,6 +1,7 @@
 package com.ecoSalud.springboot.app.integration.firebase.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -27,14 +28,15 @@ public class authServiceImpl implements authService {
     @Autowired
     private UserAccount userAccount;
 
-
+    @Value( "${custom.ms-firebase.url}" )
+    private String firebaseUrl;
 
     @Override
     public HttpStatus signIn( RequestAuthDto req ) {
         
         try {
 
-            ResponseEntity<ResponseAuthDto> registryData = new RestTemplate().exchange( "http://localhost:9050/signin", 
+            ResponseEntity<ResponseAuthDto> registryData = new RestTemplate().exchange( firebaseUrl + "/signin", 
                 HttpMethod.POST, 
                 new HttpEntity<>( req ), 
                 ResponseAuthDto.class );
@@ -75,7 +77,7 @@ public class authServiceImpl implements authService {
 
         try {
             
-            ResponseEntity<ResponseAuthDto> loginData = new RestTemplate().exchange( "http://localhost:9050/login", 
+            ResponseEntity<ResponseAuthDto> loginData = new RestTemplate().exchange( firebaseUrl + "/login", 
                 HttpMethod.POST, 
                 new HttpEntity<>( req ), 
                 ResponseAuthDto.class );
@@ -129,7 +131,7 @@ public class authServiceImpl implements authService {
 
             RequestAuthDto user =  RequestAuthDto.builder().idToken( userAccount.getIdToken() ).build();
 
-            ResponseEntity<ResponseAuthDto> loginData = new RestTemplate().exchange( "http://localhost:9050/checkSession", 
+            ResponseEntity<ResponseAuthDto> loginData = new RestTemplate().exchange( firebaseUrl + "/checkSession", 
                 HttpMethod.POST, 
                 new HttpEntity<>( user ), 
                 ResponseAuthDto.class );
@@ -179,7 +181,7 @@ public class authServiceImpl implements authService {
                 .idToken( userAccount.getIdToken() )
                 .build();
 
-            ResponseEntity<ResponseAuthDto> closeSession = new RestTemplate().exchange( "http://localhost:9050/closeSession", 
+            ResponseEntity<ResponseAuthDto> closeSession = new RestTemplate().exchange( firebaseUrl + "/closeSession", 
                 HttpMethod.POST, 
                 new HttpEntity<>( user ), 
                 ResponseAuthDto.class );

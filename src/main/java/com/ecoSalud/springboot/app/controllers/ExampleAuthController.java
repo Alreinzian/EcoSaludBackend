@@ -1,6 +1,7 @@
 package com.ecoSalud.springboot.app.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ public class ExampleAuthController {
     @Autowired
     private UserAccount userAccount; // objeto scope
 
+
     // ==========================================================
     // ===== VISTA DE PRUEBA
     // = http://localhost:8080/ecoSalud/init
@@ -36,7 +38,7 @@ public class ExampleAuthController {
 
     @GetMapping( "/init" )
     public String home( Model model ) {
-
+        
         model.addAttribute("titulo", "Cuenta de usuario");
 
         // evaluar si existe una sesión activa

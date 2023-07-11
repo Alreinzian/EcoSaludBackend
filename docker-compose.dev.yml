@@ -1,0 +1,42 @@
+version: '1.0'
+
+services:
+
+  authfirebase:
+    container_name: ms-firebase_dev
+    image: firebase_auth_ecosalud:latest
+    ports: 
+      - 8081:9050
+    environment:
+      - FIRE_WEB=AIzaSyBtPEygFp0aWka8XFUAaAzjBv_yoPCYjq0
+    networks:
+      - ecosalud
+
+  ecosaludbackend:
+    container_name: ecosalud_dev
+    image: ecosalud_backend:latest
+    build: 
+      context: .
+      dockerfile: dockerfile.dev
+    ports:
+      - 8080:8080
+    environment: 
+      - MS_FIREBASE_URL=http://authfirebase:8081
+    depends_on:
+      - authfirebase
+    networks:
+      - ecosalud
+
+  iconicfront-end:
+    container_name: front-ionic_dev
+    image: ionic_ecosalud:latest
+    ports:
+      - 8082:8100
+    depends_on:
+      - ecosaludbackend
+    networks:
+      - ecosalud
+
+
+networks:
+  ecosalud:
